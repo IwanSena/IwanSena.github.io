@@ -733,6 +733,21 @@
         <div class="aside-meta">
           Use this panel later untuk highlight Upam Global, EndSiena, atau proyek lain yang kamu anggap paling penting.
         </div>
+        <div class="aside-highlight">
+  <strong>Recent Posts</strong>
+  <ul style="margin-top:8px; padding-left:18px; font-size:13px;">
+    <li><a href="posts.html">Designing a clean repository structure</a></li>
+    <li><a href="blog.html">Why nostalgia still matters</a></li>
+    <li><a href="news.html">Upam Global documentation milestones</a></li>
+  </ul>
+</div>
+<div class="aside-highlight">
+  <strong>Pinned Project</strong>
+  <p style="margin-top:6px;">
+    <a href="projects.html">EndSiena Browser</a> — nostalgia-driven browser revival.
+  </p>
+</div>
+
       </aside>
     </section>
 
@@ -876,5 +891,53 @@
       </div>
     </section>
   </main>
+<script>
+// =========================
+// FILTER BUTTONS
+// =========================
+const filterButtons = document.querySelectorAll('.filter-pill');
+const cards = document.querySelectorAll('.card');
+
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Remove active class
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const type = btn.textContent.toLowerCase();
+
+    cards.forEach(card => {
+      const cardType = card.dataset.type;
+
+      if (type === 'all' || type === cardType) {
+        card.style.display = 'block';
+        card.style.opacity = '1';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+// =========================
+// SEARCH BAR
+// =========================
+const searchInput = document.querySelector('.search-input');
+
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    if (text.includes(query)) {
+      card.style.display = 'block';
+      card.style.opacity = '1';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+});
+</script>
+
 </body>
 </html>
