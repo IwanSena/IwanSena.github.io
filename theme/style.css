@@ -122,3 +122,26 @@ body {
 .footer-links a {
   margin-right: 12px;
 }
+/* ================= DARK MODE ================= */
+.dark {
+  --bg: #0b1220;
+  --text: #e5e7eb;
+  --border: #1f2937;
+}
+
+.dark body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.dark .hero {
+  background: linear-gradient(135deg, #2563eb, #0f766e);
+}
+
+/* DRAWER OPEN */
+.drawer {
+  display: none;
+}
+.drawer.open {
+  display: block;
+}
