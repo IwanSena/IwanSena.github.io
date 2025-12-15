@@ -1,0 +1,124 @@
+:root {
+  --blue: #4dabf7;
+  --tosca: #2dd4bf;
+  --orange: #fb923c;
+  --bg: #ffffff;
+  --text: #0f172a;
+  --border: #e5e7eb;
+}
+
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* TOP BAR */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.menu-btn {
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.brand {
+  font-weight: 600;
+}
+
+/* DRAWER */
+.drawer {
+  display: none;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.drawer a {
+  display: block;
+  padding: 8px 0;
+  color: var(--blue);
+}
+.drawer a:hover {
+  color: var(--orange);
+}
+.nav-search {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+}
+
+/* HERO */
+.hero {
+  padding: 40px 16px;
+  background: linear-gradient(135deg, var(--blue), var(--tosca));
+  color: white;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 24px 16px;
+}
+
+/* GRID ARTIKEL */
+.grid-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.grid-posts article {
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  transition: .25s;
+}
+.grid-posts article:hover {
+  box-shadow: 0 0 0 2px var(--blue);
+  transform: translateY(-4px);
+}
+
+/* POST PAGE */
+.post {
+  max-width: 760px;
+  margin: auto;
+}
+.post-content img {
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+/* PAGINATION */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+.pagination button {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: white;
+}
+.pagination button:hover {
+  box-shadow: 0 0 0 2px var(--tosca);
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 60px;
+  padding: 24px 16px;
+  border-top: 1px solid var(--border);
+}
+.footer-links a {
+  margin-right: 12px;
+}
