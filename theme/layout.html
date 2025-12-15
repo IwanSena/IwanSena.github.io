@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{page_title}} — {{site_name}}</title>
+  <meta name="description" content="{{page_description}}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS HASIL COPY KE public/css/style.css -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<header class="topbar">
+  <button class="menu-btn" id="menuToggle">☰</button>
+  <span class="brand">{{site_name}}</span>
+</header>
+
+<!-- ================= DRAWER MENU ================= -->
+<nav class="drawer" id="drawer">
+  <input class="nav-search" type="search" placeholder="Search article...">
+
+  <a href="/">Home</a>
+  <a href="/news.html">News</a>
+  <a href="/blog.html">Blog</a>
+  <a href="/technology.html">Technology</a>
+  <a href="/information.html">Information</a>
+  <a href="/projects.html">Projects</a>
+
+  <div class="nav-tools">
+    <button id="toggleTheme">🌙</button>
+    <button id="toggleLang">EN / ID</button>
+  </div>
+</nav>
+
+<!-- ================= HERO (INDEX ONLY) ================= -->
+{{#if_home}}
+<section class="hero">
+  <h1>{{site_tagline}}</h1>
+  <p>{{site_description}}</p>
+</section>
+{{/if_home}}
+
+<!-- ================= MAIN CONTENT ================= -->
+<main class="container">
+
+  <!-- INDEX PAGE -->
+  {{#if_home}}
+  <div id="article-grid" class="grid-posts">
+    {{posts}}
+  </div>
+
+  <div class="pagination">
+    {{pagination}}
+  </div>
+  {{/if_home}}
+
+  <!-- SINGLE POST / PAGE -->
+  {{#if_single}}
+  <article class="post">
+    <h1>{{title}}</h1>
+
+    <div class="post-meta">
+      <span>{{date}}</span>
+      <span>{{tags}}</span>
+    </div>
+
+    <div class="post-content">
+      {{content}}
+    </div>
+  </article>
+  {{/if_single}}
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/dmc.html">DMC</a>
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/disclaimer.html">Disclaimer</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+
+  <div class="footer-text">
+    {{footer_text}}
+  </div>
+
+  <div class="footer-copy">
+    © {{year}} {{site_name}} — Template adapted from open-source contributors.
+  </div>
+</footer>
+
+<!-- JS HASIL COPY KE public/js/script.js -->
+<script src="/js/script.js"></script>
+</body>
+</html>
