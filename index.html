@@ -36,13 +36,18 @@
                 <span class="text-xl font-black text-sky-600 dark:text-teal-400">.dev</span>
             </div>
         </div>
+
         <div class="hidden md:flex flex-1 max-w-md mx-8 relative group">
             <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-sky-500"></i>
-            <input type="text" id="searchInput" placeholder="Cari artikel..." class="w-full bg-slate-100 border-slate-200 text-slate-900 border rounded-full py-2 pl-11 pr-4 text-sm focus:outline-none focus:border-sky-500 font-medium transition-all dark:bg-slate-900/50 dark:border-white/10 dark:text-white">
+            <input type="text" id="searchInput" placeholder="Search logs..." 
+                class="w-full bg-slate-100 border-slate-200 text-slate-900 border rounded-full py-2 pl-11 pr-4 text-sm focus:outline-none focus:border-sky-500 font-medium transition-all dark:bg-slate-900/50 dark:border-white/10 dark:text-white">
         </div>
-        <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
-            <i id="themeIcon" data-lucide="sun" class="w-5 h-5 text-orange-500 dark:text-teal-400"></i>
-        </button>
+
+        <div class="flex items-center gap-2">
+            <button onclick="toggleLang()" id="langBtn" class="px-4 py-1.5 rounded-lg border text-[10px] font-mono font-bold hover:bg-sky-600 hover:text-white transition-all border-slate-200 text-slate-700 dark:border-slate-700 dark:text-slate-400">
+                <span class="flex items-center gap-2"><i data-lucide="globe" class="w-3 h-3"></i> <span id="langText">EN</span></span>
+            </button>
+        </div>
     </nav>
 
     <div id="drawerOverlay" onclick="toggleDrawer(false)" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300"></div>
@@ -51,39 +56,89 @@
             <span class="font-black text-[10px] text-sky-600 dark:text-teal-400 font-mono tracking-[0.3em] uppercase">NAV SYSTEM</span>
             <button onclick="toggleDrawer(false)" class="hover:rotate-90 transition-transform"><i data-lucide="x" class="w-6 h-6 dark:text-white"></i></button>
         </div>
-        <div class="space-y-2 flex-1 overflow-y-auto scrollbar-hide" id="navLinksContainer"></div>
+        <div class="space-y-2 flex-1 overflow-y-auto scrollbar-hide" id="navLinksContainer">
+            </div>
+        <button onclick="toggleTheme()" class="mt-auto w-full flex items-center justify-between p-4 rounded-3xl transition-all border bg-slate-100 border-slate-200 text-slate-900 shadow-sm dark:bg-slate-900 dark:border-white/5 dark:text-teal-400 dark:shadow-teal-500/10 dark:shadow-lg">
+            <div class="flex items-center gap-3">
+                <i id="themeIcon" data-lucide="sun" class="w-5 h-5 text-orange-500 dark:text-teal-400"></i>
+                <span class="font-black text-[10px] font-mono uppercase tracking-widest">MODE</span>
+            </div>
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+        </button>
     </div>
 
     <main class="flex-1 pt-24 pb-20 px-4 md:px-8 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10 min-h-screen">
+        
         <section class="lg:col-span-8 space-y-12" id="contentArea">
-            <div class="text-center py-20 animate-pulse">
-                <p class="font-mono text-sky-600 dark:text-teal-400">MEMBACA DATA SATELIT...</p>
+            <div class="flex flex-col items-center justify-center py-20 opacity-50">
+                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-sky-600 mb-4"></div>
+                <p class="font-mono text-xs">CONNECTING TO DATABASE...</p>
             </div>
         </section>
 
         <aside class="lg:col-span-4 space-y-10 h-fit sticky top-24">
+            
             <div class="p-10 rounded-[3rem] relative overflow-hidden manga-border bg-white border-slate-200 shadow-xl dark:bg-slate-900/60 dark:backdrop-blur-xl dark:border-white/5">
                 <div class="flex flex-col items-center text-center relative z-10">
-                    <div class="w-28 h-28 rounded-full border-4 p-1.5 mb-8 shadow-2xl border-sky-600 dark:border-teal-500">
+                    <div class="w-28 h-28 rounded-full border-4 p-1.5 mb-8 shadow-2xl transition-transform hover:scale-105 border-sky-600 dark:border-teal-500">
                         <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Iwan" alt="Avatar" class="w-full h-full rounded-full bg-white">
                     </div>
                     <h4 class="font-black text-2xl mb-1 dark:text-white">IwanSena</h4>
                     <p class="text-[10px] font-mono font-black uppercase tracking-[0.3em] mb-6 text-sky-600 dark:text-teal-400">Fullstack Architect</p>
                     <div class="flex gap-4 w-full">
-                        <a href="https://github.com/iwansena" target="_blank" class="flex-1 py-4 text-white rounded-2xl text-[10px] font-black transition-all uppercase tracking-[0.2em] shadow-lg hover:scale-105 active:scale-95 bg-sky-600 hover:bg-sky-700 dark:bg-teal-600 dark:hover:bg-teal-500 text-center">GITHUB</a>
+                        <button class="flex-1 py-4 text-white rounded-2xl text-[10px] font-black transition-all uppercase tracking-[0.2em] shadow-lg hover:scale-105 active:scale-95 bg-sky-600 hover:bg-sky-700 dark:bg-teal-600 dark:hover:bg-teal-500">HUB</button>
+                        <a href="https://github.com" target="_blank" class="p-4 rounded-2xl border flex items-center justify-center transition-all bg-white border-slate-200 text-slate-500 hover:bg-sky-600 hover:text-white dark:bg-slate-800 dark:border-white/5 dark:text-teal-400 dark:hover:bg-teal-500 dark:hover:text-white">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
                     </div>
                 </div>
             </div>
+
             <div class="p-8 rounded-[2.5rem] border bg-white border-slate-100 shadow-sm dark:bg-slate-900/40 dark:border-white/5 dark:shadow-xl dark:backdrop-blur-md">
-                <h4 class="font-black text-xs mb-10 flex items-center gap-3 uppercase tracking-widest text-sky-600 dark:text-teal-400"><i data-lucide="trending-up" class="w-5 h-5"></i> Recent Logs</h4>
-                <div class="space-y-10" id="trendingList"></div>
+                <h4 class="font-black text-xs mb-10 flex items-center gap-3 uppercase tracking-widest text-sky-600 dark:text-teal-400">
+                    <i data-lucide="trending-up" class="w-5 h-5"></i> Popular
+                </h4>
+                <div class="space-y-10" id="trendingList">
+                    </div>
+            </div>
+
+            <div class="p-8 rounded-[2.5rem] border bg-white border-slate-100 shadow-sm dark:bg-slate-900/40 dark:border-white/5 dark:shadow-xl dark:backdrop-blur-md">
+                <h4 class="font-black text-xs mb-8 flex items-center gap-3 uppercase tracking-widest text-sky-600 dark:text-teal-400">
+                    <i data-lucide="hash" class="w-5 h-5"></i> Tags
+                </h4>
+                <div class="flex flex-wrap gap-2" id="tagsCloud">
+                    </div>
             </div>
         </aside>
     </main>
 
-    <footer class="pt-20 pb-10 px-4 md:px-8 bg-[#0d9488] dark:bg-[#0c4a6e] text-white">
-        <div class="max-w-7xl mx-auto text-center">
-            <p class="text-[10px] font-mono opacity-50 tracking-[0.2em] uppercase font-black">© 2025 IWANSENA. POWERED BY CPANEL UPAM.</p>
+    <footer class="pt-20 pb-10 px-4 md:px-8 transition-colors relative z-10 bg-[#0d9488] dark:bg-[#0c4a6e] text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-20 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center border-b border-white/10 pb-16">
+                <div>
+                    <h5 class="font-black text-[10px] uppercase tracking-[0.4em] font-mono mb-4 text-white/70">UPLINK</h5>
+                    <p class="text-xl md:text-2xl font-black">Subscribe for updates</p>
+                </div>
+                <div class="flex gap-2">
+                    <input type="email" placeholder="ADDRESS_INPUT..." class="flex-1 border-none rounded-2xl px-6 py-4 text-xs font-black focus:outline-none focus:ring-2 focus:ring-white/50 transition-all font-mono bg-white/10 text-white placeholder:text-white/40 shadow-inner">
+                    <button class="px-8 py-4 rounded-2xl text-[11px] font-black transition-all bg-white text-[#0d9488] hover:bg-slate-100 active:scale-95 uppercase tracking-[0.2em] shadow-lg">TRANSMIT</button>
+                </div>
+            </div>
+            
+            <div class="mb-16">
+                <h5 class="font-black mb-10 text-[11px] uppercase tracking-[0.4em] text-center font-mono opacity-60">SOCIAL MATRIX</h5>
+                <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8">
+                     <a href="#" class="p-4 rounded-3xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="github" class="w-6 h-6"></i></a>
+                     <a href="#" class="p-4 rounded-3xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                     <a href="#" class="p-4 rounded-3xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+                     <a href="#" class="p-4 rounded-3xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-mono opacity-50 tracking-[0.2em] uppercase font-black">
+                <p>© 2025 IWANSENA_LOGS. ALL SYSTEMS GO.</p>
+                <div class="flex items-center gap-4"><span>POWERED BY: CPANEL UPAM</span><span class="w-1.5 h-1.5 rounded-full bg-white/30"></span><span>BUILD_ID: PRO_MASTER_V2</span></div>
+            </div>
         </div>
     </footer>
 
