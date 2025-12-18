@@ -4,33 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Log... | IwanSena</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
     <script>
-        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { primary: '#0284c7' } } } } }
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    colors: { brand: { primary: '#0284c7', darkPrimary: '#38bdf8', bgDark: '#020617' } }
+                }
+            }
+        }
     </script>
 </head>
-<body class="dark-mode"> <div class="max-w-4xl mx-auto p-6 md:p-12 min-h-screen">
-        <button onclick="window.location.href='index.html'" class="mb-8 flex items-center gap-2 text-sky-600 font-bold uppercase tracking-widest text-xs hover:-translate-x-1 transition-transform">
-            <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Feed
-        </button>
+<body class="">
 
-        <div id="article-container" class="space-y-8 animate-pulse">
-            <div class="h-8 bg-slate-200 dark:bg-slate-800 rounded-lg w-3/4"></div>
-            <div class="h-64 bg-slate-200 dark:bg-slate-800 rounded-3xl w-full"></div>
-            <div class="space-y-4">
-                <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-full"></div>
-                <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-5/6"></div>
-            </div>
+    <div id="scroll-progress"></div>
+    <div class="fluid-bg"></div>
+
+    <nav class="fixed top-0 left-0 right-0 z-50 h-16 px-4 md:px-8 flex items-center justify-between bg-white/90 backdrop-blur-md border-b border-slate-200 dark:bg-[#020617]/90 dark:border-white/5 transition-colors">
+        <button onclick="window.location.href='index.html'" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sky-600 dark:text-teal-400 font-black text-xs uppercase tracking-widest hover:bg-sky-50 dark:hover:bg-white/5 transition-all group">
+            <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> <span id="backText">BACK TO FEED</span>
+        </button>
+        <div class="flex items-center gap-2">
+            <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                <i id="themeIcon" data-lucide="sun" class="w-5 h-5 text-orange-500 dark:text-teal-400"></i>
+            </button>
         </div>
-    </div>
+    </nav>
+
+    <main class="pt-24 pb-20 px-4 md:px-8 max-w-4xl mx-auto min-h-screen">
+        
+        <div id="loadingState" class="flex flex-col items-center justify-center py-40 space-y-4">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-600 dark:border-teal-400"></div>
+            <p class="font-mono text-xs text-slate-500 animate-pulse">DECRYPTING DATA PACKET...</p>
+        </div>
+
+        <article id="articleContent" class="hidden fade-in space-y-8">
+            
+            <div class="rounded-[2.5rem] overflow-hidden border-4 border-slate-100 dark:border-white/5 shadow-2xl relative group">
+                <img id="artImage" src="" class="w-full h-auto max-h-[500px] object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6 md:p-10">
+                    <div id="artTags" class="flex flex-wrap gap-2 mb-4"></div>
+                    <h1 id="artTitle" class="text-3xl md:text-5xl font-black text-white leading-tight drop-shadow-lg"></h1>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-6 text-xs font-mono font-bold uppercase tracking-widest text-slate-500 border-b border-slate-200 dark:border-white/10 pb-8">
+                <span class="flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4 text-sky-600 dark:text-teal-400"></i> <span id="artDate"></span></span>
+                <span class="flex items-center gap-2"><i data-lucide="user" class="w-4 h-4 text-sky-600 dark:text-teal-400"></i> <span id="artAuthor">IWANSENA</span></span>
+            </div>
+
+            <div id="artBody" class="prose prose-lg prose-slate dark:prose-invert max-w-none 
+                prose-a:text-sky-600 dark:prose-a:text-teal-400 prose-a:no-underline hover:prose-a:underline
+                prose-img:rounded-3xl prose-headings:font-black prose-headings:font-sans">
+                </div>
+
+            <div class="pt-10 mt-10 border-t-2 border-slate-100 dark:border-white/5">
+                <h4 class="font-black text-xs uppercase tracking-[0.3em] mb-6 text-slate-400">SHARE TRANSMISSION</h4>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="shareTo('wa')" class="flex items-center gap-3 px-6 py-3 rounded-2xl bg-[#25D366] text-white hover:scale-105 transition-transform shadow-lg shadow-green-500/20 font-bold text-xs uppercase tracking-widest">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i> WhatsApp
+                    </button>
+                    <button onclick="shareTo('tg')" class="flex items-center gap-3 px-6 py-3 rounded-2xl bg-[#0088cc] text-white hover:scale-105 transition-transform shadow-lg shadow-blue-500/20 font-bold text-xs uppercase tracking-widest">
+                        <i data-lucide="send" class="w-5 h-5"></i> Telegram
+                    </button>
+                    <button onclick="shareTo('tw')" class="flex items-center gap-3 px-6 py-3 rounded-2xl bg-black dark:bg-white dark:text-black text-white hover:scale-105 transition-transform shadow-lg font-bold text-xs uppercase tracking-widest">
+                        <i data-lucide="twitter" class="w-5 h-5"></i> X
+                    </button>
+                    <button onclick="shareTo('cp')" class="flex items-center gap-3 px-6 py-3 rounded-2xl border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-all font-bold text-xs uppercase tracking-widest">
+                        <i data-lucide="link" class="w-5 h-5"></i> Copy Link
+                    </button>
+                </div>
+            </div>
+
+        </article>
+    </main>
 
     <script>
-        // Logika Baca Artikel Upam
+        // Init Icons
+        lucide.createIcons();
+        
+        // Theme Logic
+        let isDark = localStorage.getItem('theme') === 'dark';
+        if(isDark) document.body.classList.add('dark-mode');
+        else document.body.classList.remove('dark-mode');
+        
+        function toggleTheme() {
+            isDark = !isDark;
+            document.body.classList.toggle('dark-mode');
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateIcons();
+        }
+
+        function updateIcons() {
+            const icon = document.getElementById('themeIcon');
+            icon.setAttribute('data-lucide', isDark ? 'moon' : 'sun');
+            lucide.createIcons();
+        }
+        updateIcons();
+
+        // --- CORE LOGIC: BACA ARTIKEL SSG ---
         async function loadArticle() {
             const params = new URLSearchParams(window.location.search);
-            const slug = params.get('slug'); // Ambil slug dari URL
+            const slug = params.get('slug');
 
             if (!slug) {
                 window.location.href = 'index.html';
@@ -38,42 +122,89 @@
             }
 
             try {
-                // 1. Ambil Index Dulu untuk cari detail meta
+                // 1. Ambil Metadata dari index.json
                 const indexRes = await fetch('index.json');
                 const posts = await indexRes.json();
                 const post = posts.find(p => p.slug === slug);
 
-                // 2. Ambil Konten Markdown/HTML artikel (Biasanya nama filenya slug.html atau slug.md)
-                // Asumsi standar Upam: konten ada di file [slug].html
-                const contentRes = await fetch(`${slug}.html`); 
-                if(!contentRes.ok) throw new Error("Artikel tidak ditemukan");
-                const contentHtml = await contentRes.text();
-
-                // 3. Render
-                const container = document.getElementById('article-container');
-                container.classList.remove('animate-pulse');
+                // 2. Ambil Isi Konten (Asumsi file bernama [slug].html)
+                // Jika pakai CPanel Upam, biasanya isi artikel ada di property 'content' di index.json atau file terpisah.
+                // Logika Smart: Cek properti content dulu, kalau kosong baru fetch file.
                 
-                // Judul & Gambar dari Index, Isi dari File
-                container.innerHTML = `
-                    <h1 class="text-4xl md:text-5xl font-black leading-tight text-slate-900 dark:text-white mb-6">${post ? post.title : 'Membaca Transmisi...'}</h1>
-                    
-                    ${post && post.image ? `<img src="${post.image}" class="w-full h-auto rounded-[2rem] border-4 border-white/5 shadow-2xl mb-10">` : ''}
+                let contentHTML = "";
+                if (post.content) {
+                    contentHTML = post.content; // Jika isi artikel langsung ada di JSON
+                } else {
+                    const contentRes = await fetch(`${slug}.html`);
+                    if(!contentRes.ok) throw new Error("File konten tidak ditemukan");
+                    contentHTML = await contentRes.text();
+                }
 
-                    <div class="prose prose-lg prose-slate dark:prose-invert max-w-none">
-                        ${contentHtml}
-                    </div>
-                `;
+                // 3. Render ke Layar
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('articleContent').classList.remove('hidden');
+
+                // Isi Data
+                document.getElementById('artTitle').innerText = post ? post.title : 'Untitled Transmission';
+                document.getElementById('artDate').innerText = post ? post.date : 'UNKNOWN DATE';
+                document.getElementById('artImage').src = (post && post.image) ? post.image : 'https://via.placeholder.com/800x400?text=No+Signal';
+                
+                // Tags
+                if (post && post.tags) {
+                    document.getElementById('artTags').innerHTML = post.tags.map(t => 
+                        `<span class="px-3 py-1 bg-sky-500 text-white text-[10px] font-black uppercase rounded-lg tracking-widest shadow-lg shadow-sky-500/20">#${t}</span>`
+                    ).join('');
+                }
+
+                // Body
+                document.getElementById('artBody').innerHTML = contentHTML;
+                
+                // Ubah Judul Tab Browser
+                document.title = `${post.title} | IwanSena`;
+
                 lucide.createIcons();
 
             } catch (err) {
-                document.getElementById('article-container').innerHTML = `<h1 class="text-center text-red-500">Error: Artikel tidak ditemukan di Server.</h1>`;
+                console.error(err);
+                document.getElementById('loadingState').innerHTML = `
+                    <div class="text-center text-red-500 font-mono font-bold">
+                        <h3 class="text-xl">ERROR 404: DATA CORRUPTED</h3>
+                        <p class="text-sm opacity-70">Artikel tidak ditemukan di server.</p>
+                        <a href="index.html" class="mt-4 inline-block underline">Kembali ke Base</a>
+                    </div>
+                `;
             }
         }
 
-        // Cek tema localstorage agar konsisten
-        if(localStorage.getItem('theme') === 'light') document.body.classList.remove('dark-mode');
-        
+        // --- SHARE LOGIC ---
+        function shareTo(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            
+            let shareUrl = '';
+            if (platform === 'wa') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            if (platform === 'tg') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            if (platform === 'tw') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            
+            if (platform === 'cp') {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link Copied to Clipboard!');
+                return;
+            }
+
+            window.open(shareUrl, '_blank');
+        }
+
+        // Jalankan
         loadArticle();
+
+        // Scroll Progress
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        };
     </script>
 </body>
 </html>
