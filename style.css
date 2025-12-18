@@ -2,24 +2,19 @@
     --bg-primary: #ffffff;
     --text-main: #0f172a;
     --brand-primary: #0284c7;
-    --footer-bg: #0d9488;
 }
-
 .dark-mode {
     --bg-primary: #020617;
     --text-main: #f1f5f9;
     --brand-primary: #38bdf8;
-    --footer-bg: #0c4a6e;
 }
-
 body {
     background-color: var(--bg-primary);
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
 }
-
-/* Manga Borders & Card Styles */
+/* Manga Borders */
 .manga-border {
     position: relative;
     border: 1px solid rgba(15, 23, 42, 0.1);
@@ -33,12 +28,8 @@ body {
     box-shadow: 0 10px 30px -10px rgba(2, 132, 199, 0.2);
     border-color: var(--brand-primary);
 }
-
-/* Scrollbar Hide */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* Glitch Animation */
 @keyframes glitch {
     0% { transform: translate(0); }
     20% { transform: translate(-2px, 2px); }
@@ -48,36 +39,18 @@ body {
     100% { transform: translate(0); }
 }
 .hover-glitch:hover { animation: glitch 0.3s infinite; }
-
-/* Custom Scroll Progress Bar */
 #scroll-progress {
-    position: fixed;
-    top: 0; left: 0; height: 4px;
-    background: #0ea5e9;
-    z-index: 100;
-    width: 0%;
-    transition: width 0.1s;
+    position: fixed; top: 0; left: 0; height: 4px; background: #0ea5e9; z-index: 100; width: 0%; transition: width 0.1s;
 }
 .dark-mode #scroll-progress { background: #14b8a6; }
-
-/* Animations for rendering */
-.fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
-}
-@keyframes fadeIn {
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Simulating Fluid Background */
 .fluid-bg {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.1), transparent 70%);
-    z-index: -1;
-    pointer-events: none;
+    z-index: -1; pointer-events: none;
 }
 .dark-mode .fluid-bg {
     background: radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.05), transparent 70%);
 }
+/* Animasi Loading */
+.fade-in { animation: fadeIn 0.5s ease-out forwards; opacity: 0; transform: translateY(20px); }
+@keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
