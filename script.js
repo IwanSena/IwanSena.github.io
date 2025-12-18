@@ -1,4 +1,4 @@
-// --- KONFIGURASI GLOBAL & BAHASA ---
+// --- KONFIGURASI GLOBAL ---
 let ARTICLES = [];
 let filteredArticles = [];
 let currentPage = 1;
@@ -7,7 +7,7 @@ let isDark = false;
 let currentLang = 'EN';
 let searchQuery = '';
 
-// Kamus Bahasa (Terjemahan UI)
+// --- KAMUS BAHASA (TRANSLATIONS) ---
 const TRANSLATIONS = {
     EN: {
         nav: { home: 'Home', news: 'News', blog: 'Blog', projects: 'Projects', shop: 'Store' },
@@ -31,56 +31,56 @@ const TRANSLATIONS = {
     }
 };
 
-// Data Dummy (Untuk tampilan awal jika SSG belum ada data)
+// Data Dummy (Jika index.json belum ada)
 const DUMMY_DATA = [
-    { title: 'System Ready: Waiting for Deployment', date: '2025-12-18', tags: ['System', 'Info'], excerpt: 'Sistem website berhasil di-deploy. Silakan upload artikel pertama Anda menggunakan Ekstensi CPanel Upam.', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800', slug: '#' }
+    { title: 'System Ready: Waiting for Deployment', date: '2025-12-18', tags: ['System'], excerpt: 'Sistem website berhasil di-deploy. Silakan upload artikel via CPanel Upam.', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800', slug: '#' }
 ];
 
 // --- INIT ---
 function init() {
-    // 1. Cek Dark Mode & Bahasa
+    // 1. Cek Dark Mode
     if(localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         isDark = true;
         document.documentElement.classList.add('dark');
         document.body.classList.add('dark-mode');
     }
     
-    // 2. Load Data SSG
+    // 2. Fetch Data
     fetchData();
 
-    // 3. Render Static UI (Navigasi)
+    // 3. Render Static UI (NAVIGASI LENGKAP)
     renderNavSystem();
 
-    // 4. Update UI Bahasa
+    // 4. Update Bahasa
     updateLanguageUI();
 
     // 5. Event Listeners
     const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', (e) => {
-        searchQuery = e.target.value;
-        currentPage = 1;
-        renderMainContent();
-    });
+    if(searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            currentPage = 1;
+            renderMainContent();
+        });
+    }
     window.addEventListener('scroll', handleScroll);
 }
 
-// --- LOGIKA SSG (JANGAN DIHAPUS) ---
+// --- LOGIKA UTAMA ---
 async function fetchData() {
     try {
         const response = await fetch('index.json');
         if (!response.ok) throw new Error("Index Missing");
         const data = await response.json();
-        // Urutkan artikel terbaru
         ARTICLES = data.sort((a, b) => new Date(b.date) - new Date(a.date));
     } catch (e) {
-        console.log("Mode Dummy Aktif (Belum ada artikel)");
+        console.log("Mode Dummy Aktif");
         ARTICLES = DUMMY_DATA;
     }
     renderMainContent();
     renderWidgets();
 }
 
-// --- RENDER CONTENT ---
 function renderMainContent() {
     const contentArea = document.getElementById('contentArea');
     contentArea.innerHTML = '';
@@ -93,7 +93,7 @@ function renderMainContent() {
 
     const t = TRANSLATIONS[currentLang];
 
-    // Header Feed
+    // Header
     contentArea.innerHTML += `
         <div class="flex items-center justify-between border-b pb-4 border-slate-200 dark:border-white/10 mb-10 fade-in">
             <h2 class="text-2xl md:text-3xl font-black flex items-center gap-3 italic dark:text-white">
@@ -110,12 +110,10 @@ function renderMainContent() {
         return;
     }
 
-    // Pagination Calculation
+    // Pagination
     const totalPages = Math.ceil(filteredArticles.length / perPage);
     const start = (currentPage - 1) * perPage;
     const items = filteredArticles.slice(start, start + perPage);
-
-    // Grid Container
     const grid = document.createElement('div');
     grid.className = 'grid gap-12';
 
@@ -134,7 +132,6 @@ function renderMainContent() {
                     <h3 class="text-2xl font-black mb-4 leading-tight group-hover:text-sky-600 dark:text-white dark:group-hover:text-sky-400 transition-colors">
                         <a href="${link}">${post.title}</a>
                     </h3>
-                    <p class="text-sm leading-relaxed mb-6 font-medium line-clamp-2 text-slate-700 dark:text-slate-400">${post.excerpt || ''}</p>
                     <div class="mt-auto pt-6 flex items-center justify-between border-t border-slate-100 dark:border-white/10">
                         <div class="flex items-center gap-4 text-[9px] font-mono text-slate-500 uppercase tracking-widest font-black">
                             <span class="text-sky-600 dark:text-teal-400">${post.date || 'TODAY'}</span>
@@ -149,7 +146,7 @@ function renderMainContent() {
     });
     contentArea.appendChild(grid);
 
-    // Pagination Controls
+    // Pagination Buttons
     if(totalPages > 1) {
         let pagHtml = `<div class="pt-20 flex flex-wrap items-center justify-center gap-3">`;
         pagHtml += `<button onclick="changePage(${currentPage-1})" ${currentPage===1?'disabled style="opacity:0.5"':''} class="px-6 py-3 rounded-2xl border font-black uppercase bg-white dark:bg-slate-800 dark:border-white/10 dark:text-teal-400">PREV</button>`;
@@ -164,31 +161,37 @@ function renderMainContent() {
     lucide.createIcons();
 }
 
-// --- RENDER WIDGETS & NAV ---
+// --- RENDER NAVIGASI LENGKAP (INI BAGIAN PENTINGNYA) ---
 function renderNavSystem() {
     const container = document.getElementById('navLinksContainer');
-    // Navigasi Lengkap (Home, News, Blog, Projects, Shop)
+    
+    // DEFINISI MENU NAVIGASI (Sesuaikan Link Disini)
     const links = [
         { id: 'home', icon: 'home', path: 'index.html' },
-        { id: 'news', icon: 'rss', path: '#' },
-        { id: 'blog', icon: 'book-open', path: '#' },
+        { id: 'news', icon: 'rss', path: '#' },       // Link Berita
+        { id: 'blog', icon: 'book-open', path: '#' }, // Link Blog
         { id: 'projects', icon: 'code', path: 'https://github.com/iwansena' },
-        { id: 'shop', icon: 'shopping-bag', path: '#' }
+        { id: 'shop', icon: 'shopping-bag', path: '#' } // Link Toko
     ];
     
+    // Render ke HTML
+    const t = TRANSLATIONS[currentLang];
     container.innerHTML = links.map(l => `
-        <a href="${l.path}" class="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-sky-500/10 group transition-all text-left">
+        <a href="${l.path}" onclick="toggleDrawer(false)" class="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-sky-500/10 group transition-all text-left">
             <i data-lucide="${l.icon}" class="w-5 h-5 text-sky-600 dark:text-teal-400"></i>
-            <span class="font-bold text-sm text-slate-700 dark:text-slate-300 group-hover:text-sky-600" data-i18n="nav.${l.id}">-</span>
+            <span class="font-bold text-sm text-slate-700 dark:text-slate-300 group-hover:text-sky-600 transition-colors">
+                ${t.nav[l.id] || l.id.toUpperCase()}
+            </span>
         </a>
     `).join('');
+    
+    lucide.createIcons();
 }
 
 function renderWidgets() {
     const trendingList = document.getElementById('trendingList');
     const tagsCloud = document.getElementById('tagsCloud');
     
-    // Popular Widget
     if(trendingList) {
         const popular = ARTICLES.slice(0, 4);
         trendingList.innerHTML = popular.map((p, i) => `
@@ -202,7 +205,6 @@ function renderWidgets() {
         `).join('');
     }
 
-    // Tags Widget
     if(tagsCloud) {
         const allTags = [...new Set(ARTICLES.flatMap(a => a.tags || []))].slice(0, 8);
         tagsCloud.innerHTML = allTags.map(tag => `
@@ -212,27 +214,28 @@ function renderWidgets() {
         `).join('');
     }
     lucide.createIcons();
-    updateLanguageUI(); // Pastikan bahasa terupdate setelah render
 }
 
-// --- LOGIKA BAHASA & TEMA ---
+// --- FUNGSI UTILITAS ---
 function toggleLang() {
     currentLang = currentLang === 'EN' ? 'ID' : 'EN';
     updateLanguageUI();
-    renderMainContent(); // Re-render artikel agar teks tombol berubah
+    renderNavSystem(); // Re-render navigasi agar bahasa berubah
+    renderMainContent(); // Re-render konten utama
 }
 
 function updateLanguageUI() {
     const t = TRANSLATIONS[currentLang];
     
-    // Update Tombol Lang
-    document.getElementById('langText').innerText = t.ui.lang;
-    
-    // Update semua elemen dengan atribut data-i18n
+    // Update Tombol Bahasa
+    const langText = document.getElementById('langText');
+    if(langText) langText.innerText = t.ui.lang;
+
+    // Update Elemen Statis dengan Atribut data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        const keys = key.split('.'); // misal: "nav.home" -> ["nav", "home"]
-        if(keys.length === 2) {
+        const keys = key.split('.');
+        if(keys.length === 2 && t[keys[0]] && t[keys[0]][keys[1]]) {
             el.innerText = t[keys[0]][keys[1]];
         }
     });
@@ -282,6 +285,6 @@ function handleScroll() {
     }
 }
 
-// START
+// Start
 init();
 window.onload = function() { lucide.createIcons(); }
