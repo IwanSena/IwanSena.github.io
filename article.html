@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Log... | IwanSena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { primary: '#0284c7' } } } } }
+    </script>
+</head>
+<body class="dark-mode"> <div class="max-w-4xl mx-auto p-6 md:p-12 min-h-screen">
+        <button onclick="window.location.href='index.html'" class="mb-8 flex items-center gap-2 text-sky-600 font-bold uppercase tracking-widest text-xs hover:-translate-x-1 transition-transform">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Feed
+        </button>
+
+        <div id="article-container" class="space-y-8 animate-pulse">
+            <div class="h-8 bg-slate-200 dark:bg-slate-800 rounded-lg w-3/4"></div>
+            <div class="h-64 bg-slate-200 dark:bg-slate-800 rounded-3xl w-full"></div>
+            <div class="space-y-4">
+                <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-full"></div>
+                <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-5/6"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Logika Baca Artikel Upam
+        async function loadArticle() {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug'); // Ambil slug dari URL
+
+            if (!slug) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                // 1. Ambil Index Dulu untuk cari detail meta
+                const indexRes = await fetch('index.json');
+                const posts = await indexRes.json();
+                const post = posts.find(p => p.slug === slug);
+
+                // 2. Ambil Konten Markdown/HTML artikel (Biasanya nama filenya slug.html atau slug.md)
+                // Asumsi standar Upam: konten ada di file [slug].html
+                const contentRes = await fetch(`${slug}.html`); 
+                if(!contentRes.ok) throw new Error("Artikel tidak ditemukan");
+                const contentHtml = await contentRes.text();
+
+                // 3. Render
+                const container = document.getElementById('article-container');
+                container.classList.remove('animate-pulse');
+                
+                // Judul & Gambar dari Index, Isi dari File
+                container.innerHTML = `
+                    <h1 class="text-4xl md:text-5xl font-black leading-tight text-slate-900 dark:text-white mb-6">${post ? post.title : 'Membaca Transmisi...'}</h1>
+                    
+                    ${post && post.image ? `<img src="${post.image}" class="w-full h-auto rounded-[2rem] border-4 border-white/5 shadow-2xl mb-10">` : ''}
+
+                    <div class="prose prose-lg prose-slate dark:prose-invert max-w-none">
+                        ${contentHtml}
+                    </div>
+                `;
+                lucide.createIcons();
+
+            } catch (err) {
+                document.getElementById('article-container').innerHTML = `<h1 class="text-center text-red-500">Error: Artikel tidak ditemukan di Server.</h1>`;
+            }
+        }
+
+        // Cek tema localstorage agar konsisten
+        if(localStorage.getItem('theme') === 'light') document.body.classList.remove('dark-mode');
+        
+        loadArticle();
+    </script>
+</body>
+</html>
