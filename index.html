@@ -37,12 +37,12 @@
     </script>
 </head>
 <body class="">
-
+    
     <div id="scroll-progress"></div>
     
     <div class="fluid-bg"></div>
 
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b h-16 px-4 md:px-8 flex items-center justify-between transition-colors bg-white/90 backdrop-blur-md border-slate-200 dark:bg-[#020617]/90 dark:border-white/5">
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b h-16 px-4 md:px-8 flex items-center justify-beteen transition-colors bg-white/90 backdrop-blur-md border-slate-200 dark:bg-[#020617]/90 dark:border-white/5">
         <div class="flex items-center gap-4">
             <button onclick="toggleDrawer(true)" class="p-2 hover:bg-sky-500/10 rounded-lg group transition-all">
                 <i data-lucide="menu" class="w-6 h-6 text-slate-900 group-hover:text-sky-500 dark:text-sky-400"></i>
@@ -80,6 +80,14 @@
             <i data-lucide="sparkles" class="w-4 h-4"></i>
         </button>
     </div>
+    <div id="article-grid" class="grid-posts">
+    <p style="text-align:center;">Memuat artikel...</p>
+</div>
+
+<div class="pagination">
+    <button id="prev-btn" disabled>&laquo; Sebelumnya</button>
+    <button id="next-btn">Selanjutnya &raquo;</button>
+</div>
 
     <main class="flex-1 pt-24 pb-20 px-4 md:px-8 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10 min-h-screen">
         
@@ -148,5 +156,95 @@
     </button>
 
     <script src="script.js"></script>
+    <script>
+        // Paksa browser menggambar ulang ikon setelah semua siap
+        window.onload = function() {
+            lucide.createIcons();
+        };
+    </script>
+    <script>
+    // --- KONFIGURASI SSG ---
+    let allPosts = [];
+    let filteredPosts = [];
+    let currentPage = 1;
+    const postsPerPage = 12; // Jumlah artikel per halaman
+
+    // Cek apakah ada filter kategori di URL
+    const params = new URLSearchParams(window.location.search);
+    const categoryFilter = params.get('cat');
+
+    // --- LANGKAH 1: AMBIL DATA DARI GITHUB (index.json) ---
+    fetch('index.json')
+        .then(res => {
+            if (!res.ok) throw new Error("File index.json belum ada");
+            return res.json();
+        })
+        .then(posts => {
+            // Urutkan Terbaru -> Terlama
+            allPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Filter jika ada kategori
+            if (categoryFilter) {
+                filteredPosts = allPosts.filter(p => p.tags.some(tag => tag.toLowerCase() === categoryFilter.toLowerCase()));
+            } else {
+                filteredPosts = allPosts;
+            }
+            
+            renderPage(1);
+        })
+        .catch(err => {
+            document.getElementById('article-grid').innerHTML = 
+            `<div style="text-align:center; padding:50px;">
+                <h3>Belum Ada Konten</h3>
+                <p>Silakan posting artikel pertama dari Ekstensi Upam Admin.</p>
+            </div>`;
+        });
+
+    // --- LANGKAH 2: TAMPILKAN KE LAYAR ---
+    function renderPage(page) {
+        const start = (page - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        const pagePosts = filteredPosts.slice(start, end);
+        const grid = document.getElementById('article-grid');
+        
+        grid.innerHTML = '';
+
+        if (pagePosts.length === 0) {
+            grid.innerHTML = '<p style="text-align:center;">Tidak ada artikel.</p>';
+            return;
+        }
+
+        pagePosts.forEach(post => {
+            // Generate Label/Tag
+            const tagsHtml = post.tags.slice(0, 2).map(tag => 
+                `<a href="index.html?cat=${tag}" style="font-size:0.7rem; background:#e0f2fe; color:#004080; padding:2px 8px; border-radius:4px; text-decoration:none; margin-right:5px; font-weight:bold;">${tag}</a>`
+            ).join('');
+
+            // Template Kartu Artikel
+            const html = `
+                <div class="card" style="background:white; border-radius:12px; overflow:hidden; border:1px solid #e2e8f0; margin-bottom:20px;">
+                    <img src="https://via.placeholder.com/400x200?text=${encodeURIComponent(post.title)}" style="width:100%; height:180px; object-fit:cover;">
+                    <div style="padding:20px;">
+                        <div style="margin-bottom:10px;">${tagsHtml}</div>
+                        <small style="color:#64748b;">${post.date}</small>
+                        <h3 style="margin:10px 0;">
+                            <a href="article.html?slug=${post.slug}" style="text-decoration:none; color:#1e293b;">${post.title}</a>
+                        </h3>
+                        <a href="article.html?slug=${post.slug}" style="color:#ff5722; font-weight:bold; font-size:0.9rem;">Baca Selengkapnya &rarr;</a>
+                    </div>
+                </div>
+            `;
+            grid.innerHTML += html;
+        });
+
+        // Update Tombol Navigasi
+        document.getElementById('prev-btn').disabled = page === 1;
+        document.getElementById('next-btn').disabled = end >= filteredPosts.length;
+    }
+
+    // Tombol Klik
+    document.getElementById('prev-btn').onclick = () => renderPage(--currentPage);
+    document.getElementById('next-btn').onclick = () => renderPage(++currentPage);
+</script>
 </body>
 </html>
