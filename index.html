@@ -1,111 +1,124 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IwanSena Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IwanSena | Dev, Manga & Code</title>
 
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="icon" href="logo-icon.jpg"/>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="index.css">
+
+  <!-- React + ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Babel (JSX in browser) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
+<div id="article-grid" class="grid-posts">
+    <p style="text-align:center;">Memuat artikel...</p>
+</div>
 
-<header>
-  <div class="container">
-    <div class="header-content">
-      <a href="index.html" class="logo-link">
-        <img src="logo-icon.jpg" class="logo-img-icon"/>
-        <div class="logo-text-custom">
-          IWANSENA
-          <span>BLOG</span>
-        </div>
-      </a>
+<div class="pagination">
+    <button id="prev-btn" disabled>&laquo; Sebelumnya</button>
+    <button id="next-btn">Selanjutnya &raquo;</button>
+</div>
+  <div id="root"></div>
 
-      <button class="nav-toggle"><i class="fas fa-bars"></i></button>
-
-      <nav class="nav-menu">
-        <a href="index.html" class="nav-link active">Beranda</a>
-        <a href="#" class="nav-link">Blog</a>
-        <a href="#" class="nav-link">Proyek</a>
-        <a href="#" class="nav-link">Tentang</a>
-      </nav>
-    </div>
-  </div>
-</header>
-
-<main class="container">
-  <div class="main-layout">
-
-    <!-- CONTENT -->
-    <section class="content-area">
-      <div class="section-header" style="margin-bottom:20px;">
-        <h3 style="margin:0;font-size:1.5rem;font-weight:800;">
-          Artikel Terbaru
-        </h3>
-      </div>
-
-      <!-- EMPTY STATE -->
-      <div id="article-grid" class="grid-posts">
-        <div style="padding:60px;text-align:center;opacity:.7;">
-          <i class="fas fa-file-alt" style="font-size:2rem;margin-bottom:10px;"></i>
-          <p>Belum ada artikel.<br/>Konten akan segera hadir.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="widget">
-        <div class="widget-title">Pencarian</div>
-        <input type="text" placeholder="Cari artikel..." disabled />
-      </div>
-
-      <div class="widget">
-        <div class="widget-title">Kategori</div>
-        <ul class="link-list">
-          <li><a href="#">Teknologi</a></li>
-          <li><a href="#">Sejarah</a></li>
-          <li><a href="#">Budaya</a></li>
-        </ul>
-      </div>
-    </aside>
-
-  </div>
-</main>
-
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-
-      <div class="footer-col">
-        <h3>IwanSena</h3>
-        <p>Blog pribadi & eksperimen teknologi.</p>
-      </div>
-
-      <div class="footer-col">
-        <h3>Informasi</h3>
-        <ul class="footer-links">
-          <li><a href="#">Tentang</a></li>
-          <li><a href="#">Kontak</a></li>
-          <li><a href="#">Privasi</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div style="text-align:center;margin-top:20px;opacity:.6;">
-      © 2025 IwanSena. Powered by Static Site Generator.
-    </div>
-  </div>
-</footer>
-
+  <!-- App -->
+  <script type="text/babel" src="app.js"></script>
 <script>
-  document.querySelector('.nav-toggle')
-    .addEventListener('click', () => {
-      document.querySelector('.nav-menu').classList.toggle('active');
-    });
-</script>
+    // --- KONFIGURASI SSG ---
+    let allPosts = [];
+    let filteredPosts = [];
+    let currentPage = 1;
+    const postsPerPage = 12; // Jumlah artikel per halaman
 
+    // Cek apakah ada filter kategori di URL
+    const params = new URLSearchParams(window.location.search);
+    const categoryFilter = params.get('cat');
+
+    // --- LANGKAH 1: AMBIL DATA DARI GITHUB (index.json) ---
+    fetch('index.json')
+        .then(res => {
+            if (!res.ok) throw new Error("File index.json belum ada");
+            return res.json();
+        })
+        .then(posts => {
+            // Urutkan Terbaru -> Terlama
+            allPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Filter jika ada kategori
+            if (categoryFilter) {
+                filteredPosts = allPosts.filter(p => p.tags.some(tag => tag.toLowerCase() === categoryFilter.toLowerCase()));
+            } else {
+                filteredPosts = allPosts;
+            }
+            
+            renderPage(1);
+        })
+        .catch(err => {
+            document.getElementById('article-grid').innerHTML = 
+            `<div style="text-align:center; padding:50px;">
+                <h3>Belum Ada Konten</h3>
+                <p>Silakan posting artikel pertama dari Ekstensi Upam Admin.</p>
+            </div>`;
+        });
+
+    // --- LANGKAH 2: TAMPILKAN KE LAYAR ---
+    function renderPage(page) {
+        const start = (page - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        const pagePosts = filteredPosts.slice(start, end);
+        const grid = document.getElementById('article-grid');
+        
+        grid.innerHTML = '';
+
+        if (pagePosts.length === 0) {
+            grid.innerHTML = '<p style="text-align:center;">Tidak ada artikel.</p>';
+            return;
+        }
+
+        pagePosts.forEach(post => {
+            // Generate Label/Tag
+            const tagsHtml = post.tags.slice(0, 2).map(tag => 
+                `<a href="index.html?cat=${tag}" style="font-size:0.7rem; background:#e0f2fe; color:#004080; padding:2px 8px; border-radius:4px; text-decoration:none; margin-right:5px; font-weight:bold;">${tag}</a>`
+            ).join('');
+
+            // Template Kartu Artikel
+            const html = `
+                <div class="card" style="background:white; border-radius:12px; overflow:hidden; border:1px solid #e2e8f0; margin-bottom:20px;">
+                    <img src="https://via.placeholder.com/400x200?text=${encodeURIComponent(post.title)}" style="width:100%; height:180px; object-fit:cover;">
+                    <div style="padding:20px;">
+                        <div style="margin-bottom:10px;">${tagsHtml}</div>
+                        <small style="color:#64748b;">${post.date}</small>
+                        <h3 style="margin:10px 0;">
+                            <a href="article.html?slug=${post.slug}" style="text-decoration:none; color:#1e293b;">${post.title}</a>
+                        </h3>
+                        <a href="article.html?slug=${post.slug}" style="color:#ff5722; font-weight:bold; font-size:0.9rem;">Baca Selengkapnya &rarr;</a>
+                    </div>
+                </div>
+            `;
+            grid.innerHTML += html;
+        });
+
+        // Update Tombol Navigasi
+        document.getElementById('prev-btn').disabled = page === 1;
+        document.getElementById('next-btn').disabled = end >= filteredPosts.length;
+    }
+
+    // Tombol Klik
+    document.getElementById('prev-btn').onclick = () => renderPage(--currentPage);
+    document.getElementById('next-btn').onclick = () => renderPage(++currentPage);
+</script>
 </body>
 </html>
