@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store | IwanSena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { primary: '#0284c7' } } } } }
+    </script>
+</head>
+<body class="">
+    <div id="drawerOverlay" onclick="toggleDrawer(false)" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300"></div>
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b h-16 px-4 md:px-8 flex items-center justify-between bg-white/90 backdrop-blur-md dark:bg-[#020617]/90 dark:border-white/5">
+        <button onclick="toggleDrawer(true)" class="p-2"><i data-lucide="menu" class="w-6 h-6 text-slate-900 dark:text-white"></i></button>
+        <span class="font-black text-xl">STORE<span class="text-sky-600">.dl</span></span>
+        <button onclick="toggleTheme()"><i id="themeIcon" data-lucide="sun" class="w-5 h-5"></i></button>
+    </nav>
+    <div id="drawer" class="fixed top-0 left-0 bottom-0 w-72 bg-white dark:bg-[#020617] z-[120] p-8 border-r border-white/5 shadow-2xl transform -translate-x-full transition-transform duration-300"><div class="space-y-2" id="navLinksContainer"></div></div>
+
+    <main class="pt-24 pb-20 px-4 md:px-8 max-w-6xl mx-auto min-h-screen">
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="rounded-[2rem] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/50 p-6 flex flex-col gap-4 shadow-sm hover:shadow-xl transition-all">
+                <div class="h-40 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                    <i data-lucide="package" class="w-12 h-12 text-slate-300"></i>
+                </div>
+                <div>
+                    <h3 class="font-black text-xl dark:text-white">UI KITS BUNDLE</h3>
+                    <p class="text-xs font-mono text-slate-400 mt-1">FIGMA / REACT</p>
+                    <p class="text-sm mt-3 opacity-70">Kumpulan komponen UI premium untuk dashboard modern.</p>
+                </div>
+                <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-white/5">
+                    <span class="font-black text-lg text-sky-600">$29.00</span>
+                    <button class="px-4 py-2 bg-slate-900 dark:bg-white dark:text-black text-white rounded-lg text-xs font-bold uppercase">Buy Now</button>
+                </div>
+            </div>
+
+             <div class="rounded-[2rem] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/50 p-6 flex flex-col gap-4 shadow-sm hover:shadow-xl transition-all">
+                <div class="h-40 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                    <i data-lucide="book" class="w-12 h-12 text-slate-300"></i>
+                </div>
+                <div>
+                    <h3 class="font-black text-xl dark:text-white">EBOOK: JS MASTERY</h3>
+                    <p class="text-xs font-mono text-slate-400 mt-1">PDF / EPUB</p>
+                    <p class="text-sm mt-3 opacity-70">Panduan lengkap menguasai JavaScript modern 2025.</p>
+                </div>
+                <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-white/5">
+                    <span class="font-black text-lg text-sky-600">$15.00</span>
+                    <button class="px-4 py-2 bg-slate-900 dark:bg-white dark:text-black text-white rounded-lg text-xs font-bold uppercase">Buy Now</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
