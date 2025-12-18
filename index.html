@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IwanSena Blog</title>
+
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="icon" href="logo-icon.jpg"/>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="header-content">
+      <a href="index.html" class="logo-link">
+        <img src="logo-icon.jpg" class="logo-img-icon"/>
+        <div class="logo-text-custom">
+          IWANSENA
+          <span>BLOG</span>
+        </div>
+      </a>
+
+      <button class="nav-toggle"><i class="fas fa-bars"></i></button>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link active">Beranda</a>
+        <a href="#" class="nav-link">Blog</a>
+        <a href="#" class="nav-link">Proyek</a>
+        <a href="#" class="nav-link">Tentang</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="main-layout">
+
+    <!-- CONTENT -->
+    <section class="content-area">
+      <div class="section-header" style="margin-bottom:20px;">
+        <h3 style="margin:0;font-size:1.5rem;font-weight:800;">
+          Artikel Terbaru
+        </h3>
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div id="article-grid" class="grid-posts">
+        <div style="padding:60px;text-align:center;opacity:.7;">
+          <i class="fas fa-file-alt" style="font-size:2rem;margin-bottom:10px;"></i>
+          <p>Belum ada artikel.<br/>Konten akan segera hadir.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="widget">
+        <div class="widget-title">Pencarian</div>
+        <input type="text" placeholder="Cari artikel..." disabled />
+      </div>
+
+      <div class="widget">
+        <div class="widget-title">Kategori</div>
+        <ul class="link-list">
+          <li><a href="#">Teknologi</a></li>
+          <li><a href="#">Sejarah</a></li>
+          <li><a href="#">Budaya</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-col">
+        <h3>IwanSena</h3>
+        <p>Blog pribadi & eksperimen teknologi.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Informasi</h3>
+        <ul class="footer-links">
+          <li><a href="#">Tentang</a></li>
+          <li><a href="#">Kontak</a></li>
+          <li><a href="#">Privasi</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:20px;opacity:.6;">
+      © 2025 IwanSena. Powered by Static Site Generator.
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelector('.nav-toggle')
+    .addEventListener('click', () => {
+      document.querySelector('.nav-menu').classList.toggle('active');
+    });
+</script>
+
+</body>
+</html>
