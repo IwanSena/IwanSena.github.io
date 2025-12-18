@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IwanSena | Dev, Manga & Code</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -23,6 +26,7 @@
     </script>
 </head>
 <body class="">
+
     <div id="scroll-progress"></div>
     <div class="fluid-bg"></div>
 
@@ -39,8 +43,7 @@
 
         <div class="hidden md:flex flex-1 max-w-md mx-8 relative group">
             <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-sky-500"></i>
-            <input type="text" id="searchInput" placeholder="Search logs..." 
-                class="w-full bg-slate-100 border-slate-200 text-slate-900 border rounded-full py-2 pl-11 pr-4 text-sm focus:outline-none focus:border-sky-500 font-medium transition-all dark:bg-slate-900/50 dark:border-white/10 dark:text-white">
+            <input type="text" id="searchInput" placeholder="Search logs..." class="w-full bg-slate-100 border-slate-200 text-slate-900 border rounded-full py-2 pl-11 pr-4 text-sm focus:outline-none focus:border-sky-500 font-medium transition-all dark:bg-slate-900/50 dark:border-white/10 dark:text-white data-i18n-placeholder='ui.search'">
         </div>
 
         <div class="flex items-center gap-2">
@@ -53,7 +56,7 @@
     <div id="drawerOverlay" onclick="toggleDrawer(false)" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300"></div>
     <div id="drawer" class="fixed top-0 left-0 bottom-0 w-72 bg-white dark:bg-[#020617] z-[120] p-8 border-r border-white/5 shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300">
         <div class="flex justify-between items-center mb-10">
-            <span class="font-black text-[10px] text-sky-600 dark:text-teal-400 font-mono tracking-[0.3em] uppercase">NAV SYSTEM</span>
+            <span class="font-black text-[10px] text-sky-600 dark:text-teal-400 font-mono tracking-[0.3em] uppercase data-i18n="ui.sidebar">NAV SYSTEM</span>
             <button onclick="toggleDrawer(false)" class="hover:rotate-90 transition-transform"><i data-lucide="x" class="w-6 h-6 dark:text-white"></i></button>
         </div>
         <div class="space-y-2 flex-1 overflow-y-auto scrollbar-hide" id="navLinksContainer">
@@ -61,7 +64,7 @@
         <button onclick="toggleTheme()" class="mt-auto w-full flex items-center justify-between p-4 rounded-3xl transition-all border bg-slate-100 border-slate-200 text-slate-900 shadow-sm dark:bg-slate-900 dark:border-white/5 dark:text-teal-400 dark:shadow-teal-500/10 dark:shadow-lg">
             <div class="flex items-center gap-3">
                 <i id="themeIcon" data-lucide="sun" class="w-5 h-5 text-orange-500 dark:text-teal-400"></i>
-                <span class="font-black text-[10px] font-mono uppercase tracking-widest">MODE</span>
+                <span class="font-black text-[10px] font-mono uppercase tracking-widest data-i18n="ui.mode">MODE</span>
             </div>
             <i data-lucide="sparkles" class="w-4 h-4"></i>
         </button>
@@ -78,33 +81,36 @@
 
         <aside class="lg:col-span-4 space-y-10 h-fit sticky top-24">
             
-            <div class="p-10 rounded-[3rem] relative overflow-hidden manga-border bg-white border-slate-200 shadow-xl dark:bg-slate-900/60 dark:backdrop-blur-xl dark:border-white/5">
+            <div class="p-8 rounded-[2.5rem] relative overflow-hidden manga-border bg-white border-slate-200 shadow-xl dark:bg-slate-900/60 dark:backdrop-blur-xl dark:border-white/5">
                 <div class="flex flex-col items-center text-center relative z-10">
-                    <div class="w-28 h-28 rounded-full border-4 p-1.5 mb-8 shadow-2xl transition-transform hover:scale-105 border-sky-600 dark:border-teal-500">
+                    <div class="w-24 h-24 rounded-full border-4 p-1 mb-6 shadow-xl border-sky-600 dark:border-teal-500 hover:scale-105 transition-transform">
                         <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Iwan" alt="Avatar" class="w-full h-full rounded-full bg-white">
                     </div>
-                    <h4 class="font-black text-2xl mb-1 dark:text-white">IwanSena</h4>
-                    <p class="text-[10px] font-mono font-black uppercase tracking-[0.3em] mb-6 text-sky-600 dark:text-teal-400">Fullstack Architect</p>
-                    <div class="flex gap-4 w-full">
-                        <button class="flex-1 py-4 text-white rounded-2xl text-[10px] font-black transition-all uppercase tracking-[0.2em] shadow-lg hover:scale-105 active:scale-95 bg-sky-600 hover:bg-sky-700 dark:bg-teal-600 dark:hover:bg-teal-500">HUB</button>
-                        <a href="https://github.com" target="_blank" class="p-4 rounded-2xl border flex items-center justify-center transition-all bg-white border-slate-200 text-slate-500 hover:bg-sky-600 hover:text-white dark:bg-slate-800 dark:border-white/5 dark:text-teal-400 dark:hover:bg-teal-500 dark:hover:text-white">
-                            <i data-lucide="github" class="w-5 h-5"></i>
+                    <h4 class="font-black text-xl mb-1 dark:text-white">IwanSena</h4>
+                    <p class="text-[10px] font-mono font-black uppercase tracking-[0.2em] mb-4 text-sky-600 dark:text-teal-400 data-i18n="ui.bio">Fullstack Architect</p>
+                    <p class="text-xs leading-relaxed mb-6 font-semibold text-slate-600 dark:text-slate-400 data-i18n="ui.desc">Crafting digital experiences with high-performance code.</p>
+                    <div class="flex gap-3 w-full justify-center">
+                        <a href="https://t.me/username" target="_blank" class="flex-1 py-3 text-white rounded-xl text-[10px] font-black transition-all uppercase tracking-[0.1em] shadow-lg hover:scale-105 active:scale-95 bg-[#0088cc] hover:bg-[#0077b5] flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i> TELEGRAM
+                        </a>
+                        <a href="https://github.com" target="_blank" class="p-3 rounded-xl border flex items-center justify-center transition-all bg-white border-slate-200 text-slate-500 hover:bg-sky-600 hover:text-white dark:bg-slate-800 dark:border-white/5 dark:text-teal-400 dark:hover:bg-teal-500 dark:hover:text-white">
+                            <i data-lucide="github" class="w-4 h-4"></i>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="p-8 rounded-[2.5rem] border bg-white border-slate-100 shadow-sm dark:bg-slate-900/40 dark:border-white/5 dark:shadow-xl dark:backdrop-blur-md">
-                <h4 class="font-black text-xs mb-10 flex items-center gap-3 uppercase tracking-widest text-sky-600 dark:text-teal-400">
-                    <i data-lucide="trending-up" class="w-5 h-5"></i> Popular
+            <div class="p-8 rounded-[2rem] border bg-white border-slate-100 shadow-sm dark:bg-slate-900/40 dark:border-white/5 dark:shadow-xl dark:backdrop-blur-md">
+                <h4 class="font-black text-xs mb-8 flex items-center gap-3 uppercase tracking-widest text-sky-600 dark:text-teal-400">
+                    <i data-lucide="trending-up" class="w-4 h-4"></i> <span data-i18n="ui.trending">POPULAR</span>
                 </h4>
-                <div class="space-y-10" id="trendingList">
+                <div class="space-y-8" id="trendingList">
                     </div>
             </div>
 
-            <div class="p-8 rounded-[2.5rem] border bg-white border-slate-100 shadow-sm dark:bg-slate-900/40 dark:border-white/5 dark:shadow-xl dark:backdrop-blur-md">
-                <h4 class="font-black text-xs mb-8 flex items-center gap-3 uppercase tracking-widest text-sky-600 dark:text-teal-400">
-                    <i data-lucide="hash" class="w-5 h-5"></i> Tags
+            <div class="p-8 rounded-[2rem] border bg-white border-slate-100 shadow-sm dark:bg-slate-900/40 dark:border-white/5 dark:shadow-xl dark:backdrop-blur-md">
+                <h4 class="font-black text-xs mb-6 flex items-center gap-3 uppercase tracking-widest text-sky-600 dark:text-teal-400">
+                    <i data-lucide="hash" class="w-4 h-4"></i> <span data-i18n="ui.meta">TAGS</span>
                 </h4>
                 <div class="flex flex-wrap gap-2" id="tagsCloud">
                     </div>
@@ -114,30 +120,46 @@
 
     <footer class="pt-20 pb-10 px-4 md:px-8 transition-colors relative z-10 bg-[#0d9488] dark:bg-[#0c4a6e] text-white">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-20 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center border-b border-white/10 pb-16">
+            <div class="mb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center border-b border-white/10 pb-16">
                 <div>
-                    <h5 class="font-black text-[10px] uppercase tracking-[0.4em] font-mono mb-4 text-white/70">UPLINK</h5>
-                    <p class="text-xl md:text-2xl font-black">Subscribe for updates</p>
+                    <h5 class="font-black text-[10px] uppercase tracking-[0.4em] font-mono mb-4 text-white/70" data-i18n="footer.uplink">UPLINK</h5>
+                    <p class="text-xl md:text-2xl font-black" data-i18n="ui.sub">Subscribe for updates</p>
                 </div>
                 <div class="flex gap-2">
                     <input type="email" placeholder="ADDRESS_INPUT..." class="flex-1 border-none rounded-2xl px-6 py-4 text-xs font-black focus:outline-none focus:ring-2 focus:ring-white/50 transition-all font-mono bg-white/10 text-white placeholder:text-white/40 shadow-inner">
-                    <button class="px-8 py-4 rounded-2xl text-[11px] font-black transition-all bg-white text-[#0d9488] hover:bg-slate-100 active:scale-95 uppercase tracking-[0.2em] shadow-lg">TRANSMIT</button>
+                    <button class="px-8 py-4 rounded-2xl text-[11px] font-black transition-all bg-white text-[#0d9488] hover:bg-slate-100 active:scale-95 uppercase tracking-[0.2em] shadow-lg" data-i18n="ui.join">TRANSMIT</button>
                 </div>
             </div>
             
-            <div class="mb-16">
-                <h5 class="font-black mb-10 text-[11px] uppercase tracking-[0.4em] text-center font-mono opacity-60">SOCIAL MATRIX</h5>
-                <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8">
-                     <a href="#" class="p-4 rounded-3xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="github" class="w-6 h-6"></i></a>
-                     <a href="#" class="p-4 rounded-3xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
-                     <a href="#" class="p-4 rounded-3xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="twitter" class="w-6 h-6"></i></a>
-                     <a href="#" class="p-4 rounded-3xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 lg:col-span-2">
+                    <h3 class="text-2xl font-black mb-4">IwanSena<span class="opacity-50">.dev</span></h3>
+                    <p class="text-sm opacity-80 max-w-sm mb-6" data-i18n="ui.desc">Crafting digital experiences with high-performance code.</p>
+                </div>
+                
+                <div>
+                    <h5 class="font-black text-[10px] uppercase tracking-[0.3em] font-mono opacity-60 mb-6">Legal_Protocol</h5>
+                    <div class="flex flex-col gap-3 text-xs font-bold uppercase tracking-widest">
+                        <a href="#" class="opacity-70 hover:opacity-100">/ Privacy Policy</a>
+                        <a href="#" class="opacity-70 hover:opacity-100">/ Terms of Service</a>
+                        <a href="#" class="opacity-70 hover:opacity-100">/ DMCA</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="font-black text-[10px] uppercase tracking-[0.3em] font-mono opacity-60 mb-6" data-i18n="footer.grid">SOCIAL MATRIX</h5>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="#" class="p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="github" class="w-5 h-5"></i></a>
+                        <a href="#" class="p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                        <a href="#" class="p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                        <a href="#" class="p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                    </div>
                 </div>
             </div>
 
             <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-mono opacity-50 tracking-[0.2em] uppercase font-black">
-                <p>© 2025 IWANSENA_LOGS. ALL SYSTEMS GO.</p>
-                <div class="flex items-center gap-4"><span>POWERED BY: CPANEL UPAM</span><span class="w-1.5 h-1.5 rounded-full bg-white/30"></span><span>BUILD_ID: PRO_MASTER_V2</span></div>
+                <p>© 2025 IWANSENA_LOGS. <span data-i18n="footer.rights">ALL SYSTEMS GO.</span></p>
+                <div class="flex items-center gap-4"><span>POWERED BY: CPANEL UPAM</span><span class="w-1.5 h-1.5 rounded-full bg-white/30"></span><span>BUILD_ID: V3.0.FINAL</span></div>
             </div>
         </div>
     </footer>
