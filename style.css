@@ -176,3 +176,38 @@ body {
 .dark .footer-links a:active span {
   color: var(--tosca);
 }
+/* ===============================
+   FOOTER LEGAL – ACTIVE STATE
+================================ */
+
+.footer-links a {
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 999px;
+  padding: 10px 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-links a span {
+  color: #ffffff;
+  transition: color .18s ease;
+}
+
+/* ACTIVE = MENETAP */
+.footer-links a.active {
+  background-color: #ffffff;
+  border-color: transparent;
+}
+
+.footer-links a.active span {
+  color: var(--tosca);
+}
+
+/* DARK MODE SYNC */
+.dark .footer-links a.active {
+  background-color: #ffffff;
+}
+.dark .footer-links a.active span {
+  color: var(--tosca);
+}
