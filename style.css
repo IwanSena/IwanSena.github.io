@@ -55,6 +55,52 @@ body {
 .fade-in { animation: fadeIn 0.5s ease-out forwards; opacity: 0; transform: translateY(20px); }
 @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
+/* ===== BUG REPORT WIDGET ===== */
+
+.widget-bug {
+  margin-top: 24px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px dashed var(--border);
+  background: rgba(255,255,255,0.04);
+  text-align: left;
+}
+
+.widget-bug .widget-title {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.widget-bug .widget-desc {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 12px;
+}
+
+.bug-link {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--tosca);
+  color: var(--tosca);
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color .2s ease, color .2s ease;
+}
+
+.bug-link:hover {
+  background-color: var(--tosca);
+  color: white;
+}
+
+/* DARK MODE */
+.dark .widget-bug {
+  background: rgba(0,0,0,0.2);
+}
+
 /* ===== LEGAL PAGE ===== */
 
 .legal-page {
