@@ -175,25 +175,5 @@ function updateLanguageUI() {
     });
 }
 
-/* ===== FOOTER LEGAL ACTIVE STATE ===== */
-
-const footerLinks = document.querySelectorAll('.footer-links a');
-const currentPath = location.pathname.replace(/\/$/, '');
-
-footerLinks.forEach(link => {
-  const linkPath = link.getAttribute('href').replace(/\/$/, '');
-
-  // SET ACTIVE SAAT PAGE LOAD
-  if (currentPath === linkPath) {
-    link.classList.add('active');
-  }
-
-  // SET ACTIVE SAAT KLIK
-  link.addEventListener('click', () => {
-    footerLinks.forEach(l => l.classList.remove('active'));
-    link.classList.add('active');
-  });
-});
-
 // Start
 init();
