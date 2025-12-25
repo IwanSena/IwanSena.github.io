@@ -133,3 +133,46 @@ body {
   background-color: #ffffff !important;
   color: var(--tosca) !important;
 }
+
+/* ===============================
+   FOOTER LEGAL LINK — TEXT FIX
+================================ */
+
+.footer-links a {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.45);
+  padding: 10px 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* DEFAULT TEXT */
+.footer-links a span {
+  color: #ffffff; /* PUTIH */
+  transition: color .18s ease;
+}
+
+/* ACTIVE / PRESS */
+.footer-links a:active {
+  background-color: #ffffff;
+}
+
+.footer-links a:active span {
+  color: var(--tosca); /* HIJAU TOSKA — PASTI JALAN */
+}
+
+/* HOVER */
+.footer-links a:hover span {
+  color: var(--tosca);
+}
+
+/* DARK MODE — SYNC */
+.dark .footer-links a span {
+  color: #ffffff;
+}
+
+.dark .footer-links a:active span {
+  color: var(--tosca);
+}
