@@ -55,97 +55,28 @@ body {
 .fade-in { animation: fadeIn 0.5s ease-out forwards; opacity: 0; transform: translateY(20px); }
 @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
-/* ===============================
-   LEGAL FOOTER FIX (FINAL)
-================================ */
-
 .footer-legal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 16px;
+  text-align: center;
+  margin-top: 24px;
 }
 
-/* Judul kecil LEGAL_PROTOCOL */
 .footer-label {
   font-size: 12px;
   letter-spacing: 0.25em;
-  text-transform: uppercase;
   opacity: 0.7;
+  margin-bottom: 12px;
 }
 
-/* Container link */
 .footer-links {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 18px;
+  gap: 14px;
 }
 
-/* Link style */
 .footer-links a {
   padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.25);
-  font-size: 14px;
+  border: 1px solid rgba(255,255,255,0.4);
   white-space: nowrap;
-  transition: all 0.2s ease;
-}
-
-/* Hover */
-.footer-links a:hover {
-  border-color: transparent;
-  box-shadow: 0 0 0 2px var(--tosca);
-  color: var(--orange);
-}
-
-/* Mobile safety */
-@media (max-width: 600px) {
-  .footer-links {
-    gap: 12px;
-  }
-}
-
-/* ===============================
-   FOOTER LEGAL — HARD RESET
-================================ */
-
-.footer-legal,
-.footer-legal * {
-  white-space: normal !important;
-}
-
-.footer-legal {
-  display: block !important;
-  text-align: center;
-  max-width: 100%;
-  overflow: visible;
-}
-
-/* PAKSA NAV JADI FLEX WRAP */
-.footer-legal nav,
-.footer-links {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  justify-content: center !important;
-  gap: 12px 18px !important;
-  width: 100%;
-  max-width: 100%;
-}
-
-/* LINK TIDAK BOLEH INLINE */
-.footer-links a {
-  display: inline-flex !important;
-  white-space: nowrap;
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-  .footer-links {
-    gap: 10px;
-  }
 }
