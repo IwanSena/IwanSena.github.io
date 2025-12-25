@@ -106,3 +106,46 @@ body {
     gap: 12px;
   }
 }
+
+/* ===============================
+   FOOTER LEGAL — HARD RESET
+================================ */
+
+.footer-legal,
+.footer-legal * {
+  white-space: normal !important;
+}
+
+.footer-legal {
+  display: block !important;
+  text-align: center;
+  max-width: 100%;
+  overflow: visible;
+}
+
+/* PAKSA NAV JADI FLEX WRAP */
+.footer-legal nav,
+.footer-links {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 12px 18px !important;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* LINK TIDAK BOLEH INLINE */
+.footer-links a {
+  display: inline-flex !important;
+  white-space: nowrap;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .footer-links {
+    gap: 10px;
+  }
+}
