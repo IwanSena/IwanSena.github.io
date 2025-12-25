@@ -175,5 +175,25 @@ function updateLanguageUI() {
     });
 }
 
+/* ===============================
+   FOOTER LEGAL ACTIVE STATE
+================================ */
+
+const footerLinks = document.querySelectorAll('.footer-links a');
+const path = location.pathname;
+
+footerLinks.forEach(link => {
+  // SET ACTIVE BERDASARKAN URL (SAAT LOAD)
+  if (path.includes(link.getAttribute('href'))) {
+    link.classList.add('active');
+  }
+
+  // SET ACTIVE SAAT DIKLIK
+  link.addEventListener('click', () => {
+    footerLinks.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+
 // Start
 init();
