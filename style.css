@@ -55,7 +55,39 @@ body {
 .fade-in { animation: fadeIn 0.5s ease-out forwards; opacity: 0; transform: translateY(20px); }
 @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
-/* ===== FOOTER LEGAL (FINAL) ===== */
+/* ===== LEGAL PAGE ===== */
+
+.legal-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 20px;
+  line-height: 1.8;
+}
+
+.legal-page h1 {
+  font-size: 34px;
+  margin-bottom: 32px;
+  color: var(--blue);
+}
+
+.legal-page h2 {
+  font-size: 20px;
+  margin-top: 40px;
+  margin-bottom: 12px;
+  padding-left: 12px;
+  border-left: 4px solid var(--tosca);
+}
+
+.legal-page p {
+  margin-bottom: 14px;
+}
+
+/* DARK MODE */
+.dark .legal-page h1 {
+  color: var(--tosca);
+}
+
+/* ===== FOOTER LEGAL (FINAL, CLEAN) ===== */
 
 .footer-links {
   display: flex;
@@ -78,10 +110,9 @@ body {
 /* TEXT */
 .footer-links a span {
   color: #ffffff;
-  transition: color .2s ease;
 }
 
-/* ACTIVE STATE (MENETAP) */
+/* ACTIVE (MENETAP) */
 .footer-links a.active {
   background-color: #ffffff;
   border-color: transparent;
@@ -91,17 +122,10 @@ body {
   color: var(--tosca);
 }
 
-/* HOVER (DESKTOP SAJA) */
+/* HOVER DESKTOP */
 @media (hover: hover) {
   .footer-links a:hover span {
     color: var(--tosca);
   }
 }
 
-/* DARK MODE */
-.dark .footer-links a span {
-  color: #ffffff;
-}
-.dark .footer-links a.active span {
-  color: var(--tosca);
-}
