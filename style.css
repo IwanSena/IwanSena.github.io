@@ -82,17 +82,18 @@ body {
 }
 
 /* ===============================
-   FOOTER LEGAL LINK – FINAL UX
+   FOOTER LEGAL LINK — FINAL FIX
 ================================ */
 
-.footer-links a {
-  position: relative;
+.footer-links a,
+.footer-links a:link,
+.footer-links a:visited {
+  color: #ffffff;              /* DEFAULT PUTIH */
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.45);
   padding: 10px 20px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.5);
-  background: transparent;
-  color: white;
-  font-weight: 500;
+  text-decoration: none;
   transition:
     background-color .18s ease,
     color .18s ease,
@@ -100,16 +101,17 @@ body {
     transform .12s ease;
 }
 
-/* HOVER (DESKTOP) */
+/* HOVER */
 .footer-links a:hover {
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.4);
   transform: translateY(-1px);
 }
 
-/* ACTIVE / PRESSED (INI YANG KAMU MAU) */
+/* ACTIVE / PRESS (INI YANG KAMU MAU) */
 .footer-links a:active {
-  background-color: #ffffff;      /* PUTIH */
-  color: var(--tosca);             /* HIJAU TOSKA */
+  background-color: #ffffff !important;   /* BLOCK PUTIH */
+  color: var(--tosca) !important;          /* TEKS TOSKA */
+  border-color: transparent;
   box-shadow: none;
   transform: scale(0.97);
 }
@@ -120,33 +122,14 @@ body {
   box-shadow: 0 0 0 3px rgba(45,212,191,0.7);
 }
 
-/* ===============================
-   DARK MODE SYNC
-================================ */
-
-.dark .footer-links a {
-  border-color: rgba(255,255,255,0.4);
-  color: white;
+/* DARK MODE SYNC */
+.dark .footer-links a,
+.dark .footer-links a:link,
+.dark .footer-links a:visited {
+  color: #ffffff;
 }
 
 .dark .footer-links a:active {
-  background-color: #ffffff;      /* TETAP PUTIH */
-  color: var(--tosca);             /* TETAP TOSKA */
-}
-
-/* ===============================
-   ACTIVE STATE (VISIBLE)
-================================ */
-
-.footer-links a.active {
-  background-color: #ffffff;   /* PUTIH */
-  color: var(--tosca);          /* HIJAU TOSKA */
-  border-color: transparent;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.6);
-}
-
-/* DARK MODE SYNC */
-.dark .footer-links a.active {
-  background-color: #ffffff;
-  color: var(--tosca);
+  background-color: #ffffff !important;
+  color: var(--tosca) !important;
 }
