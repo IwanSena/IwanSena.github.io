@@ -175,20 +175,20 @@ function updateLanguageUI() {
     });
 }
 
-/* ===============================
-   FOOTER LEGAL ACTIVE STATE
-================================ */
+/* ===== FOOTER LEGAL ACTIVE STATE ===== */
 
 const footerLinks = document.querySelectorAll('.footer-links a');
-const path = location.pathname;
+const currentPath = location.pathname.replace(/\/$/, '');
 
 footerLinks.forEach(link => {
-  // SET ACTIVE BERDASARKAN URL (SAAT LOAD)
-  if (path.includes(link.getAttribute('href'))) {
+  const linkPath = link.getAttribute('href').replace(/\/$/, '');
+
+  // SET ACTIVE SAAT PAGE LOAD
+  if (currentPath === linkPath) {
     link.classList.add('active');
   }
 
-  // SET ACTIVE SAAT DIKLIK
+  // SET ACTIVE SAAT KLIK
   link.addEventListener('click', () => {
     footerLinks.forEach(l => l.classList.remove('active'));
     link.classList.add('active');
