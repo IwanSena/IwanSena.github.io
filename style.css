@@ -55,17 +55,7 @@ body {
 .fade-in { animation: fadeIn 0.5s ease-out forwards; opacity: 0; transform: translateY(20px); }
 @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
-.footer-legal {
-  text-align: center;
-  margin-top: 24px;
-}
-
-.footer-label {
-  font-size: 12px;
-  letter-spacing: 0.25em;
-  opacity: 0.7;
-  margin-bottom: 12px;
-}
+/* ===== FOOTER LEGAL (FINAL) ===== */
 
 .footer-links {
   display: flex;
@@ -75,126 +65,23 @@ body {
 }
 
 .footer-links a {
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.4);
-  white-space: nowrap;
-}
-
-/* ===============================
-   FOOTER LEGAL LINK — FINAL FIX
-================================ */
-
-.footer-links a,
-.footer-links a:link,
-.footer-links a:visited {
-  color: #ffffff;              /* DEFAULT PUTIH */
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.45);
-  padding: 10px 20px;
-  border-radius: 999px;
-  text-decoration: none;
-  transition:
-    background-color .18s ease,
-    color .18s ease,
-    box-shadow .18s ease,
-    transform .12s ease;
-}
-
-/* HOVER */
-.footer-links a:hover {
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.4);
-  transform: translateY(-1px);
-}
-
-/* ACTIVE / PRESS (INI YANG KAMU MAU) */
-.footer-links a:active {
-  background-color: #ffffff !important;   /* BLOCK PUTIH */
-  color: var(--tosca) !important;          /* TEKS TOSKA */
-  border-color: transparent;
-  box-shadow: none;
-  transform: scale(0.97);
-}
-
-/* FOCUS (AKSESIBILITAS) */
-.footer-links a:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(45,212,191,0.7);
-}
-
-/* DARK MODE SYNC */
-.dark .footer-links a,
-.dark .footer-links a:link,
-.dark .footer-links a:visited {
-  color: #ffffff;
-}
-
-.dark .footer-links a:active {
-  background-color: #ffffff !important;
-  color: var(--tosca) !important;
-}
-
-/* ===============================
-   FOOTER LEGAL LINK — TEXT FIX
-================================ */
-
-.footer-links a {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.45);
-  padding: 10px 20px;
-  border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
-
-/* DEFAULT TEXT */
-.footer-links a span {
-  color: #ffffff; /* PUTIH */
-  transition: color .18s ease;
-}
-
-/* ACTIVE / PRESS */
-.footer-links a:active {
-  background-color: #ffffff;
-}
-
-.footer-links a:active span {
-  color: var(--tosca); /* HIJAU TOSKA — PASTI JALAN */
-}
-
-/* HOVER */
-.footer-links a:hover span {
-  color: var(--tosca);
-}
-
-/* DARK MODE — SYNC */
-.dark .footer-links a span {
-  color: #ffffff;
-}
-
-.dark .footer-links a:active span {
-  color: var(--tosca);
-}
-/* ===============================
-   FOOTER LEGAL – ACTIVE STATE
-================================ */
-
-.footer-links a {
-  border: 1px solid rgba(255,255,255,0.45);
-  border-radius: 999px;
   padding: 10px 22px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.45);
+  background: transparent;
+  text-decoration: none;
 }
 
+/* TEXT */
 .footer-links a span {
   color: #ffffff;
-  transition: color .18s ease;
+  transition: color .2s ease;
 }
 
-/* ACTIVE = MENETAP */
+/* ACTIVE STATE (MENETAP) */
 .footer-links a.active {
   background-color: #ffffff;
   border-color: transparent;
@@ -204,9 +91,16 @@ body {
   color: var(--tosca);
 }
 
-/* DARK MODE SYNC */
-.dark .footer-links a.active {
-  background-color: #ffffff;
+/* HOVER (DESKTOP SAJA) */
+@media (hover: hover) {
+  .footer-links a:hover span {
+    color: var(--tosca);
+  }
+}
+
+/* DARK MODE */
+.dark .footer-links a span {
+  color: #ffffff;
 }
 .dark .footer-links a.active span {
   color: var(--tosca);
