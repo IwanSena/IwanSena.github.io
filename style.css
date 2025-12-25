@@ -56,56 +56,53 @@ body {
 @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
 /* ===============================
-   LEGAL & ARTICLE TYPOGRAPHY
+   LEGAL FOOTER FIX (FINAL)
 ================================ */
 
-.post {
-  max-width: 760px;
-  margin: 0 auto;
-  line-height: 1.75;
-  font-size: 16px;
-}
-
-.post h1 {
-  font-size: 32px;
+.footer-legal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
   margin-bottom: 16px;
 }
 
-.post h2 {
-  font-size: 20px;
-  margin-top: 32px;
-  margin-bottom: 12px;
-  padding-left: 10px;
-  border-left: 4px solid var(--blue);
+/* Judul kecil LEGAL_PROTOCOL */
+.footer-label {
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.7;
 }
 
-.post p {
-  margin-bottom: 14px;
+/* Container link */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
 }
 
-.post ul {
-  margin: 12px 0 18px 20px;
+/* Link style */
+.footer-links a {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.25);
+  font-size: 14px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
-.post li {
-  margin-bottom: 8px;
-}
-
-/* Link di halaman legal */
-.post a {
-  color: var(--blue);
-  text-decoration: underline;
-}
-.post a:hover {
+/* Hover */
+.footer-links a:hover {
+  border-color: transparent;
+  box-shadow: 0 0 0 2px var(--tosca);
   color: var(--orange);
 }
 
-/* Mobile */
+/* Mobile safety */
 @media (max-width: 600px) {
-  .post {
-    font-size: 15px;
-  }
-  .post h1 {
-    font-size: 26px;
+  .footer-links {
+    gap: 12px;
   }
 }
