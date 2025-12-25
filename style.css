@@ -133,3 +133,20 @@ body {
   background-color: #ffffff;      /* TETAP PUTIH */
   color: var(--tosca);             /* TETAP TOSKA */
 }
+
+/* ===============================
+   ACTIVE STATE (VISIBLE)
+================================ */
+
+.footer-links a.active {
+  background-color: #ffffff;   /* PUTIH */
+  color: var(--tosca);          /* HIJAU TOSKA */
+  border-color: transparent;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.6);
+}
+
+/* DARK MODE SYNC */
+.dark .footer-links a.active {
+  background-color: #ffffff;
+  color: var(--tosca);
+}
