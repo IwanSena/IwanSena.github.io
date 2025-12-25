@@ -82,48 +82,54 @@ body {
 }
 
 /* ===============================
-   FOOTER LINK INTERACTION
+   FOOTER LEGAL LINK – FINAL UX
 ================================ */
 
 .footer-links a {
   position: relative;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.35);
-  color: inherit;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: transparent;
+  color: white;
+  font-weight: 500;
   transition:
     background-color .18s ease,
     color .18s ease,
     box-shadow .18s ease,
-    transform .12s ease,
-    border-color .18s ease;
+    transform .12s ease;
 }
 
 /* HOVER (DESKTOP) */
 .footer-links a:hover {
-  background-color: rgba(45, 212, 191, 0.18); /* toska glow */
-  color: var(--orange);
-  border-color: transparent;
-  box-shadow: 0 0 0 2px var(--tosca);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
   transform: translateY(-1px);
 }
 
-/* ACTIVE (SAAT DITEKAN) */
+/* ACTIVE / PRESSED (INI YANG KAMU MAU) */
 .footer-links a:active {
-  transform: translateY(0) scale(0.96);
-  box-shadow: 0 0 0 3px rgba(251,146,60,0.35);
+  background-color: #ffffff;      /* PUTIH */
+  color: var(--tosca);             /* HIJAU TOSKA */
+  box-shadow: none;
+  transform: scale(0.97);
 }
 
-/* FOCUS (KEYBOARD / ACCESSIBILITY) */
+/* FOCUS (AKSESIBILITAS) */
 .footer-links a:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px var(--blue);
+  box-shadow: 0 0 0 3px rgba(45,212,191,0.7);
 }
 
-/* MOBILE TOUCH FEEDBACK */
-@media (hover: none) {
-  .footer-links a:active {
-    background-color: rgba(77,171,247,0.25);
-    color: white;
-  }
+/* ===============================
+   DARK MODE SYNC
+================================ */
+
+.dark .footer-links a {
+  border-color: rgba(255,255,255,0.4);
+  color: white;
+}
+
+.dark .footer-links a:active {
+  background-color: #ffffff;      /* TETAP PUTIH */
+  color: var(--tosca);             /* TETAP TOSKA */
 }
