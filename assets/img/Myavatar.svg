@@ -1,0 +1,524 @@
+<svg width="260" height="260" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Advanced Skin Gradients -->
+    <radialGradient id="skinRadial" cx="30%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#FFEFE0"/>
+      <stop offset="50%" stop-color="#F5D6C2"/>
+      <stop offset="100%" stop-color="#E8C4A8"/>
+    </radialGradient>
+    
+    <linearGradient id="skinShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#B08D61" stop-opacity="0.9"/>
+    </linearGradient>
+    
+    <linearGradient id="skinHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFF5EB" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#FFEFE0" stop-opacity="0.9"/>
+    </linearGradient>
+    
+    <!-- Hair Gradient - Multi-dimensional -->
+    <linearGradient id="hairBase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D0704"/>
+      <stop offset="30%" stop-color="#1A0F0A"/>
+      <stop offset="70%" stop-color="#261912"/>
+      <stop offset="100%" stop-color="#0D0704"/>
+    </linearGradient>
+    
+    <linearGradient id="hairHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3C2A1E" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#5A4032" stop-opacity="0.4"/>
+    </linearGradient>
+    
+    <!-- Complex Background -->
+    <radialGradient id="bgMain" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#0A0E17"/>
+      <stop offset="40%" stop-color="#0F1C2E"/>
+      <stop offset="80%" stop-color="#16213E"/>
+      <stop offset="100%" stop-color="#1D2B4A"/>
+    </radialGradient>
+    
+    <!-- Technology Color Schemes -->
+    <linearGradient id="jsGradient">
+      <stop offset="0%" stop-color="#F7DF1E"/>
+      <stop offset="50%" stop-color="#F0DB4F"/>
+      <stop offset="100%" stop-color="#D6BA32"/>
+    </linearGradient>
+    
+    <linearGradient id="rustGradient">
+      <stop offset="0%" stop-color="#CE422B"/>
+      <stop offset="50%" stop-color="#DE5C45"/>
+      <stop offset="100%" stop-color="#A8321F"/>
+    </linearGradient>
+    
+    <linearGradient id="tsGradient">
+      <stop offset="0%" stop-color="#3178C6"/>
+      <stop offset="50%" stop-color="#4A90E2"/>
+      <stop offset="100%" stop-color="#255A91"/>
+    </linearGradient>
+    
+    <linearGradient id="pythonGradient">
+      <stop offset="0%" stop-color="#3776AB"/>
+      <stop offset="100%" stop-color="#306998"/>
+    </linearGradient>
+    
+    <linearGradient id="goGradient">
+      <stop offset="0%" stop-color="#00ADD8"/>
+      <stop offset="100%" stop-color="#007D9C"/>
+    </linearGradient>
+    
+    <!-- Advanced Filters -->
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#3A86FF" flood-opacity="0.3"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="specularHighlight">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
+      <feSpecularLighting in="blur" surfaceScale="10" specularConstant="1" specularExponent="20" lighting-color="#FFFFFF" result="spec">
+        <fePointLight x="50" y="-30" z="200"/>
+      </feSpecularLighting>
+      <feComposite in="spec" in2="SourceGraphic" operator="in"/>
+    </filter>
+    
+    <filter id="dropShadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="4" result="offsetblur"/>
+      <feFlood flood-color="#000000" flood-opacity="0.25"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Complex Patterns -->
+    <pattern id="circuitPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M20,0 L20,40 M0,20 L40,20" stroke="#3A86FF" stroke-width="0.8" opacity="0.15"/>
+      <path d="M0,0 L40,40 M40,0 L0,40" stroke="#4361EE" stroke-width="0.5" opacity="0.1"/>
+      <circle cx="20" cy="20" r="3" fill="#4CC9F0" opacity="0.2">
+        <animate attributeName="r" values="3;4;3" dur="2s" repeatCount="indefinite"/>
+      </circle>
+    </pattern>
+    
+    <!-- Tech Icons with Complexity -->
+    <g id="jsComplex">
+      <rect x="-12" y="-12" width="24" height="24" rx="5" fill="#F7DF1E"/>
+      <path d="M-8,-8 L8,8 M8,-8 L-8,8" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+      <text x="0" y="4" text-anchor="middle" font-family="Consolas, monospace" font-size="12" font-weight="bold" fill="#000000">JS</text>
+      <circle cx="0" cy="0" r="10" fill="none" stroke="#000000" stroke-width="1" opacity="0.3">
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="6s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    <g id="rustComplex">
+      <circle cx="0" cy="0" r="12" fill="#CE422B"/>
+      <path d="M-6,-6 L0,0 L-6,6 M6,-6 L0,0 L6,6" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="0" cy="0" r="8" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.5">
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    <g id="tsComplex">
+      <rect x="-12" y="-12" width="24" height="24" rx="5" fill="#3178C6"/>
+      <text x="0" y="5" text-anchor="middle" font-family="Consolas, monospace" font-size="12" font-weight="bold" fill="#FFFFFF">TS</text>
+      <rect x="-8" y="-8" width="16" height="16" rx="3" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.5">
+        <animate attributeName="width" values="16;18;16" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="height" values="16;18;16" dur="3s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+    
+    <!-- Additional Tech Icons -->
+    <g id="pythonComplex">
+      <circle cx="0" cy="0" r="11" fill="#3776AB"/>
+      <path d="M-5,-3 L5,-3 L5,3 L-5,3 Z" fill="#FFD43B"/>
+      <circle cx="0" cy="0" r="5" fill="none" stroke="#FFD43B" stroke-width="1"/>
+    </g>
+    
+    <g id="goComplex">
+      <circle cx="0" cy="0" r="10" fill="#00ADD8"/>
+      <path d="M-5,0 L5,0 M0,-5 L0,5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="0" cy="0" r="6" fill="none" stroke="#FFFFFF" stroke-width="1">
+        <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    <!-- Particle Systems -->
+    <g id="codeParticle">
+      <circle cx="0" cy="0" r="1.5" fill="#4CC9F0">
+        <animate attributeName="r" values="1.5;2.5;1.5" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    <!-- Micro-details -->
+    <g id="poreDetail">
+      <circle cx="0" cy="0" r="0.3" fill="#D4A574" opacity="0.3"/>
+    </g>
+    
+    <!-- Eye Details -->
+    <g id="eyeSparkle">
+      <circle cx="0" cy="0" r="0.8" fill="#FFFFFF"/>
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+    </g>
+  </defs>
+  
+  <!-- Layered Background System -->
+  <rect width="260" height="260" fill="url(#bgMain)"/>
+  <rect width="260" height="260" fill="url(#circuitPattern)"/>
+  
+  <!-- Animated Nebula Background -->
+  <g opacity="0.15">
+    <circle cx="50" cy="50" r="40" fill="#3A86FF">
+      <animate attributeName="cx" values="50;60;50" dur="15s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="80" r="30" fill="#4CC9F0">
+      <animate attributeName="cy" values="80;90;80" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="150" cy="200" r="35" fill="#4361EE">
+      <animate attributeName="r" values="35;40;35" dur="10s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Central Glow Effect -->
+  <ellipse cx="130" cy="130" rx="85" ry="95" fill="#3A86FF" opacity="0.08" filter="url(#softGlow)"/>
+  
+  <!-- Advanced Head Structure -->
+  <g filter="url(#dropShadow)">
+    <!-- Head Base -->
+    <ellipse cx="130" cy="135" rx="62" ry="72" fill="url(#skinRadial)"/>
+    
+    <!-- Skull Structure Highlights -->
+    <ellipse cx="130" cy="100" rx="35" ry="20" fill="url(#skinHighlight)" opacity="0.6"/>
+    
+    <!-- Cheek Bone Structure -->
+    <path d="M90,120 Q100,115 110,118" stroke="url(#skinShadow)" stroke-width="3" fill="none" opacity="0.4"/>
+    <path d="M170,120 Q160,115 150,118" stroke="url(#skinShadow)" stroke-width="3" fill="none" opacity="0.4"/>
+    
+    <!-- Jawline Definition -->
+    <path d="M85,160 Q100,170 115,165" stroke="url(#skinShadow)" stroke-width="2" fill="none" opacity="0.5"/>
+    <path d="M175,160 Q160,170 145,165" stroke="url(#skinShadow)" stroke-width="2" fill="none" opacity="0.5"/>
+    
+    <!-- Forehead Details -->
+    <ellipse cx="130" cy="90" rx="30" ry="15" fill="url(#skinHighlight)" opacity="0.4">
+      <animate attributeName="ry" values="15;17;15" dur="4s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+  
+  <!-- Complex Hair System -->
+  <g>
+    <!-- Hair Base -->
+    <path d="M68,85 Q130,40 192,85 Q185,55 130,42 Q75,55 68,85" 
+          fill="url(#hairBase)"/>
+    
+    <!-- Hair Volume Layers -->
+    <path d="M70,90 Q130,50 190,90 Q185,65 130,55 Q75,65 70,90" 
+          fill="url(#hairBase)" opacity="0.9"/>
+    
+    <!-- Hair Strand Details -->
+    <g stroke="url(#hairHighlight)" stroke-width="1.5" stroke-linecap="round">
+      <!-- Front Strands -->
+      <path d="M85,80 Q95,75 105,78" opacity="0.7"/>
+      <path d="M95,85 Q105,80 115,83" opacity="0.6"/>
+      <path d="M155,78 Q165,75 175,80" opacity="0.7"/>
+      <path d="M145,83 Q155,80 165,85" opacity="0.6"/>
+      
+      <!-- Side Strands -->
+      <path d="M75,100 Q85,95 95,98" opacity="0.5"/>
+      <path d="M185,98 Q175,95 165,100" opacity="0.5"/>
+      
+      <!-- Top Highlights -->
+      <path d="M110,70 Q130,65 150,70" opacity="0.8"/>
+      <path d="M105,75 Q130,70 155,75" opacity="0.7"/>
+    </g>
+    
+    <!-- Hair Texture Particles -->
+    <g opacity="0.4">
+      <circle cx="100" cy="75" r="0.8" fill="#FFFFFF"/>
+      <circle cx="120" cy="70" r="0.6" fill="#FFFFFF"/>
+      <circle cx="140" cy="75" r="0.8" fill="#FFFFFF"/>
+      <circle cx="160" cy="80" r="0.7" fill="#FFFFFF"/>
+    </g>
+  </g>
+  
+  <!-- Detailed Facial Features -->
+  <g>
+    <!-- Eyebrows with Texture -->
+    <g>
+      <!-- Left Eyebrow -->
+      <path d="M95,105 Q105,102 115,105" stroke="#1A0F0A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M95,107 Q105,104 115,107" stroke="#1A0F0A" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+      
+      <!-- Right Eyebrow -->
+      <path d="M145,105 Q155,102 165,105" stroke="#1A0F0A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M145,107 Q155,104 165,107" stroke="#1A0F0A" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+    </g>
+    
+    <!-- Complex Eye System -->
+    <g>
+      <!-- Eye Sockets -->
+      <ellipse cx="112" cy="118" rx="8" ry="6" fill="url(#skinShadow)" opacity="0.2"/>
+      <ellipse cx="148" cy="118" rx="8" ry="6" fill="url(#skinShadow)" opacity="0.2"/>
+      
+      <!-- Eyes -->
+      <!-- Left Eye -->
+      <g>
+        <!-- Eye White -->
+        <ellipse cx="112" cy="118" rx="6" ry="8" fill="#FFFFFF"/>
+        
+        <!-- Iris -->
+        <circle cx="112" cy="118" r="4.5" fill="#2C1810"/>
+        
+        <!-- Pupil -->
+        <circle cx="112" cy="118" r="1.8" fill="#000000">
+          <animate attributeName="r" values="1.8;2;1.8" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        
+        <!-- Eye Highlights -->
+        <circle cx="110" cy="116" r="1.5" fill="#FFFFFF" opacity="0.9">
+          <use href="#eyeSparkle"/>
+        </circle>
+        <circle cx="114" cy="120" r="0.8" fill="#FFFFFF" opacity="0.7"/>
+        
+        <!-- Eyelids -->
+        <path d="M106,112 Q112,110 118,112" stroke="#D4A574" stroke-width="1.5" fill="none" opacity="0.8"/>
+        <path d="M106,124 Q112,126 118,124" stroke="#D4A574" stroke-width="1.5" fill="none" opacity="0.8"/>
+      </g>
+      
+      <!-- Right Eye -->
+      <g>
+        <!-- Eye White -->
+        <ellipse cx="148" cy="118" rx="6" ry="8" fill="#FFFFFF"/>
+        
+        <!-- Iris -->
+        <circle cx="148" cy="118" r="4.5" fill="#2C1810"/>
+        
+        <!-- Pupil -->
+        <circle cx="148" cy="118" r="1.8" fill="#000000">
+          <animate attributeName="r" values="1.8;2;1.8" dur="3s" repeatCount="indefinite" begin="0.5s"/>
+        </circle>
+        
+        <!-- Eye Highlights -->
+        <circle cx="146" cy="116" r="1.5" fill="#FFFFFF" opacity="0.9">
+          <use href="#eyeSparkle"/>
+        </circle>
+        <circle cx="150" cy="120" r="0.8" fill="#FFFFFF" opacity="0.7"/>
+        
+        <!-- Eyelids -->
+        <path d="M142,112 Q148,110 154,112" stroke="#D4A574" stroke-width="1.5" fill="none" opacity="0.8"/>
+        <path d="M142,124 Q148,126 154,124" stroke="#D4A574" stroke-width="1.5" fill="none" opacity="0.8"/>
+      </g>
+      
+      <!-- Eyelashes -->
+      <g stroke="#1A0F0A" stroke-width="1" opacity="0.7">
+        <!-- Left Lashes -->
+        <path d="M106,112 Q105,110 104,108"/>
+        <path d="M112,110 Q111,108 110,106"/>
+        <path d="M118,112 Q119,110 120,108"/>
+        
+        <!-- Right Lashes -->
+        <path d="M142,112 Q141,110 140,108"/>
+        <path d="M148,110 Q147,108 146,106"/>
+        <path d="M154,112 Q155,110 156,108"/>
+      </g>
+    </g>
+    
+    <!-- Complex Nose Structure -->
+    <g>
+      <!-- Nose Bridge -->
+      <path d="M130,120 Q132,125 130,130" stroke="#D4A574" stroke-width="2" fill="none"/>
+      
+      <!-- Nose Tip -->
+      <circle cx="130" cy="135" r="3" fill="#D4A574"/>
+      
+      <!-- Nostrils -->
+      <ellipse cx="127" cy="138" rx="1.5" ry="1" fill="#B08D61"/>
+      <ellipse cx="133" cy="138" rx="1.5" ry="1" fill="#B08D61"/>
+      
+      <!-- Nose Shadows -->
+      <path d="M125,130 Q127,132 129,133" stroke="url(#skinShadow)" stroke-width="1.5" fill="none" opacity="0.5"/>
+      <path d="M135,130 Q133,132 131,133" stroke="url(#skinShadow)" stroke-width="1.5" fill="none" opacity="0.5"/>
+    </g>
+    
+    <!-- Detailed Mouth -->
+    <g>
+      <!-- Lips -->
+      <path d="M115,150 Q130,158 145,150" stroke="#C19A6B" stroke-width="3" fill="none" stroke-linecap="round"/>
+      
+      <!-- Upper Lip -->
+      <path d="M115,150 Q130,154 145,150" stroke="#C19A6B" stroke-width="2" fill="none"/>
+      
+      <!-- Lower Lip -->
+      <path d="M118,152 Q130,156 142,152" stroke="#C19A6B" stroke-width="2" fill="none" opacity="0.8"/>
+      
+      <!-- Lip Highlights -->
+      <path d="M120,149 Q130,152 140,149" stroke="#FFEFE0" stroke-width="1" fill="none" opacity="0.6"/>
+      
+      <!-- Mouth Corner Details -->
+      <circle cx="115" cy="150" r="1" fill="#C19A6B"/>
+      <circle cx="145" cy="150" r="1" fill="#C19A6B"/>
+    </g>
+    
+    <!-- Ear Details -->
+    <g>
+      <!-- Left Ear -->
+      <path d="M75,120 Q80,110 85,115 Q83,125 78,128 Q73,125 75,120" fill="url(#skinRadial)"/>
+      <path d="M78,115 Q80,112 82,115" stroke="#D4A574" stroke-width="0.8" fill="none"/>
+      
+      <!-- Right Ear -->
+      <path d="M185,120 Q180,110 175,115 Q177,125 182,128 Q187,125 185,120" fill="url(#skinRadial)"/>
+      <path d="M182,115 Q180,112 178,115" stroke="#D4A574" stroke-width="0.8" fill="none"/>
+    </g>
+    
+    <!-- Skin Texture -->
+    <g opacity="0.1">
+      <!-- Forehead Pores -->
+      <use href="#poreDetail" x="120" y="95"/>
+      <use href="#poreDetail" x="125" y="98"/>
+      <use href="#poreDetail" x="115" y="100"/>
+      <use href="#poreDetail" x="135" y="102"/>
+      <use href="#poreDetail" x="130" y="105"/>
+      
+      <!-- Cheek Pores -->
+      <use href="#poreDetail" x="100" y="125"/>
+      <use href="#poreDetail" x="105" y="128"/>
+      <use href="#poreDetail" x="160" y="125"/>
+      <use href="#poreDetail" x="155" y="128"/>
+    </g>
+  </g>
+  
+  <!-- Neck and Shoulder Structure -->
+  <g>
+    <!-- Neck -->
+    <rect x="122" y="168" width="16" height="25" rx="4" fill="url(#skinShadow)"/>
+    
+    <!-- Collarbone -->
+    <path d="M110,170 Q130,175 150,170" stroke="#D4A574" stroke-width="1.5" fill="none" opacity="0.7"/>
+    
+    <!-- Shoulders -->
+    <path d="M85,190 Q130,175 175,190 Q170,210 130,200 Q90,210 85,190" fill="#1D2B4A"/>
+    
+    <!-- Clothing Details -->
+    <path d="M100,195 Q130,190 160,195" stroke="#3A86FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <circle cx="130" cy="195" r="2" fill="#3A86FF" opacity="0.8">
+      <animate attributeName="r" values="2;3;2" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Complex Falling Tech System -->
+  <g id="fallingTech">
+    <!-- Layer 1: Main Icons -->
+    <use href="#jsComplex" x="40" y="-20">
+      <animate attributeName="y" values="-20;280" dur="8s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.9;0" dur="8s" repeatCount="indefinite"/>
+    </use>
+    
+    <use href="#rustComplex" x="200" y="-40">
+      <animate attributeName="y" values="-40;280" dur="10s" repeatCount="indefinite" begin="1s"/>
+      <animateTransform attributeName="transform" type="rotate" values="360;0" dur="8s" repeatCount="indefinite" begin="1s"/>
+      <animate attributeName="opacity" values="0;0.9;0" dur="10s" repeatCount="indefinite" begin="1s"/>
+    </use>
+    
+    <use href="#tsComplex" x="80" y="-60">
+      <animate attributeName="y" values="-60;280" dur="9s" repeatCount="indefinite" begin="2s"/>
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="7s" repeatCount="indefinite" begin="2s"/>
+      <animate attributeName="opacity" values="0;0.9;0" dur="9s" repeatCount="indefinite" begin="2s"/>
+    </use>
+    
+    <use href="#pythonComplex" x="180" y="-80">
+      <animate attributeName="y" values="-80;280" dur="11s" repeatCount="indefinite" begin="3s"/>
+      <animateTransform attributeName="transform" type="rotate" values="360;0" dur="9s" repeatCount="indefinite" begin="3s"/>
+      <animate attributeName="opacity" values="0;0.9;0" dur="11s" repeatCount="indefinite" begin="3s"/>
+    </use>
+    
+    <use href="#goComplex" x="30" y="-100">
+      <animate attributeName="y" values="-100;280" dur="12s" repeatCount="indefinite" begin="4s"/>
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="10s" repeatCount="indefinite" begin="4s"/>
+      <animate attributeName="opacity" values="0;0.9;0" dur="12s" repeatCount="indefinite" begin="4s"/>
+    </use>
+    
+    <!-- Layer 2: Secondary Icons -->
+    <use href="#jsComplex" x="150" y="-120" transform="scale(0.7)">
+      <animate attributeName="y" values="-120;280" dur="14s" repeatCount="indefinite" begin="1.5s"/>
+      <animateTransform attributeName="transform" type="rotate" values="0;360" additive="sum" dur="12s" repeatCount="indefinite" begin="1.5s"/>
+    </use>
+    
+    <use href="#tsComplex" x="60" y="-140" transform="scale(0.6)">
+      <animate attributeName="y" values="-140;280" dur="13s" repeatCount="indefinite" begin="2.5s"/>
+      <animateTransform attributeName="transform" type="rotate" values="360;0" additive="sum" dur="11s" repeatCount="indefinite" begin="2.5s"/>
+    </use>
+    
+    <!-- Layer 3: Particle Systems -->
+    <g>
+      <!-- JavaScript Particles -->
+      <use href="#codeParticle" x="20" y="0">
+        <animate attributeName="y" values="0;260" dur="5s" repeatCount="indefinite"/>
+        <animate attributeName="x" values="20;25;20" dur="3s" repeatCount="indefinite"/>
+      </use>
+      
+      <use href="#codeParticle" x="50" y="-30" fill="#F7DF1E">
+        <animate attributeName="y" values="-30;260" dur="6s" repeatCount="indefinite" begin="0.3s"/>
+        <animate attributeName="x" values="50;45;50" dur="4s" repeatCount="indefinite" begin="0.3s"/>
+      </use>
+      
+      <!-- Rust Particles -->
+      <use href="#codeParticle" x="220" y="-20" fill="#CE422B">
+        <animate attributeName="y" values="-20;260" dur="7s" repeatCount="indefinite" begin="0.7s"/>
+        <animate attributeName="x" values="220;215;220" dur="5s" repeatCount="indefinite" begin="0.7s"/>
+      </use>
+      
+      <!-- TypeScript Particles -->
+      <use href="#codeParticle" x="180" y="-50" fill="#3178C6">
+        <animate attributeName="y" values="-50;260" dur="8s" repeatCount="indefinite" begin="1.2s"/>
+        <animate attributeName="x" values="180;185;180" dur="6s" repeatCount="indefinite" begin="1.2s"/>
+      </use>
+      
+      <!-- Mixed Particles -->
+      <use href="#codeParticle" x="90" y="-70" fill="#4CC9F0">
+        <animate attributeName="y" values="-70;260" dur="9s" repeatCount="indefinite" begin="1.8s"/>
+        <animate attributeName="x" values="90;85;90" dur="7s" repeatCount="indefinite" begin="1.8s"/>
+      </use>
+      
+      <use href="#codeParticle" x="140" y="-90" fill="#4361EE">
+        <animate attributeName="y" values="-90;260" dur="10s" repeatCount="indefinite" begin="2.4s"/>
+        <animate attributeName="x" values="140;145;140" dur="8s" repeatCount="indefinite" begin="2.4s"/>
+      </use>
+    </g>
+  </g>
+  
+  <!-- Ambient Light Effects -->
+  <g opacity="0.3">
+    <!-- Light from top-left -->
+    <ellipse cx="50" cy="50" rx="60" ry="40" fill="#FFFFFF">
+      <animate attributeName="opacity" values="0.3;0.5;0.3" dur="4s" repeatCount="indefinite"/>
+    </ellipse>
+    
+    <!-- Light from right -->
+    <ellipse cx="210" cy="100" rx="40" ry="60" fill="#3A86FF">
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="5s" repeatCount="indefinite" begin="1s"/>
+    </ellipse>
+  </g>
+  
+  <!-- Complex Border with Multiple Layers -->
+  <g>
+    <!-- Outer Glow -->
+    <circle cx="130" cy="130" r="128" fill="none" stroke="url(#tsGradient)" stroke-width="1" opacity="0.2">
+      <animate attributeName="stroke-width" values="1;2;1" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Middle Border -->
+    <circle cx="130" cy="130" r="125" fill="none" stroke="url(#rustGradient)" stroke-width="1.5" opacity="0.3">
+      <animate attributeName="stroke-dasharray" values="5,5;10,5;5,5" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Inner Border -->
+    <circle cx="130" cy="130" r="122" fill="none" stroke="url(#jsGradient)" stroke-width="1" opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.6;0.4" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
