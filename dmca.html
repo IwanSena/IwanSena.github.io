@@ -1,53 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>DMCA</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMCA | IwanSena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { primary: '#0284c7' } } } } }
+    </script>
 </head>
-<body>
+<body class="">
+    <div id="drawerOverlay" onclick="toggleDrawer(false)" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300"></div>
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b h-16 px-4 md:px-8 flex items-center justify-between bg-white/90 backdrop-blur-md dark:bg-[#020617]/90 dark:border-white/5">
+        <button onclick="toggleDrawer(true)" class="p-2"><i data-lucide="menu" class="w-6 h-6 text-slate-900 dark:text-white"></i></button>
+        <span class="font-black text-xl">DMCA<span class="text-sky-600">.legal</span></span>
+        <button onclick="toggleTheme()"><i id="themeIcon" data-lucide="sun" class="w-5 h-5"></i></button>
+    </nav>
+    <div id="drawer" class="fixed top-0 left-0 bottom-0 w-72 bg-white dark:bg-[#020617] z-[120] p-8 border-r border-white/5 shadow-2xl transform -translate-x-full transition-transform duration-300"><div class="space-y-2" id="navLinksContainer"></div></div>
 
-<header class="topbar">
-  <span class="brand">DMCA Notice</span>
-</header>
+    <main class="pt-24 pb-20 px-4 md:px-8 max-w-4xl mx-auto min-h-screen">
+        <div class="mb-10 border-b border-slate-200 dark:border-white/10 pb-6">
+            <h1 class="text-4xl font-black mb-2 dark:text-white">DMCA TAKEDOWN</h1>
+            <p class="font-mono text-xs opacity-60 uppercase tracking-widest dark:text-slate-400">COPYRIGHT COMPLIANCE</p>
+        </div>
 
-<main class="container post">
-  <h1>DMCA Notice</h1>
+        <article class="prose prose-lg prose-slate dark:prose-invert max-w-none prose-headings:font-black prose-headings:font-sans">
+            <p class="lead">IwanSena.dev respects the intellectual property rights of others. We respond to notices of alleged copyright infringement in accordance with the Digital Millennium Copyright Act.</p>
 
-  <p>
-    This website respects intellectual property rights and complies with the
-    Digital Millennium Copyright Act (DMCA).
-  </p>
-
-  <h2>Copyrighted Material</h2>
-  <p>
-    All original content published on this website is owned by the site owner
-    unless otherwise stated.
-  </p>
-
-  <h2>Copyright Infringement Claims</h2>
-  <p>
-    If you believe that material on this website infringes your copyright,
-    please provide the following information:
-  </p>
-
-  <ul>
-    <li>Your name and contact information</li>
-    <li>The URL of the allegedly infringing content</li>
-    <li>A description of the copyrighted work</li>
-    <li>A statement that you believe the use is unauthorized</li>
-  </ul>
-
-  <h2>Contact</h2>
-  <p>
-    DMCA notices can be sent via email to the site owner.
-  </p>
-</main>
-
-<footer class="footer">
-  <div class="footer-copy">© 2025 Iwan Sena</div>
-</footer>
-
+            <h3>REPORTING INFRINGEMENT</h3>
+            <p>If you believe your work has been copied in a way that constitutes copyright infringement, please provide our Copyright Agent with the following information via our <a href="bug.html" class="text-sky-600">Report Form</a>.</p>
+        </article>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
