@@ -33,26 +33,50 @@
         <div class="bg-white dark:bg-slate-900/50 p-8 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-xl relative overflow-hidden">
             <div class="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
-            <form class="space-y-6">
-                <div class="space-y-2">
-                    <label class="text-xs font-black uppercase tracking-widest text-slate-400">Issue Subject</label>
-                    <input type="text" placeholder="Example: Navigation not working..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all dark:text-white">
-                </div>
+            <div class="space-y-6">
+    
+    <div class="space-y-2">
+        <label class="text-xs font-black uppercase tracking-widest text-slate-400">Issue Subject</label>
+        <input id="bugSubject" type="text" placeholder="Example: Navigation not working..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all dark:text-white">
+    </div>
 
-                <div class="space-y-2">
-                    <label class="text-xs font-black uppercase tracking-widest text-slate-400">Description</label>
-                    <textarea rows="4" placeholder="Describe how to reproduce the bug..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all dark:text-white"></textarea>
-                </div>
+    <div class="space-y-2">
+        <label class="text-xs font-black uppercase tracking-widest text-slate-400">Description</label>
+        <textarea id="bugDesc" rows="4" placeholder="Describe how to reproduce the bug..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all dark:text-white"></textarea>
+    </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                    <a href="mailto:bunga.crimson800@passinbox.com?subject=Bug Report IwanSena.dev" class="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-black text-xs uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all border border-transparent hover:border-slate-300">
-                        <i data-lucide="mail" class="w-4 h-4"></i> Send Email
-                    </a>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+        
+        <button onclick="sendBugEmail()" class="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-black text-xs uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all border border-transparent hover:border-slate-300">
+            <i data-lucide="mail" class="w-4 h-4"></i> Send Email
+        </button>
 
-                    <a href="" target="https://forms.yandex.com/u/68fb99f084227c80246fcfc1" class="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-sky-600 text-white font-black text-xs uppercase tracking-widest hover:bg-sky-500 transition-all shadow-lg shadow-sky-500/30">
-                        <i data-lucide="external-link" class="w-4 h-4"></i> External Form
-                    </a>
-                </div>
+        <a href="https://forms.yandex.com/u/68fb99f084227c80246fcfc1" target="_blank" class="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-sky-600 text-white font-black text-xs uppercase tracking-widest hover:bg-sky-500 transition-all shadow-lg shadow-sky-500/30">
+            <i data-lucide="external-link" class="w-4 h-4"></i> External Form
+        </a>
+    </div>
+</div>
+
+<script>
+    function sendBugEmail() {
+        // 1. Ambil isi dari kotak input
+        const subject = document.getElementById('bugSubject').value;
+        const body = document.getElementById('bugDesc').value;
+        
+        // 2. Tentukan Email Tujuan (GANTI EMAIL INI)
+        const myEmail = "bunga.crimson800@passinbox.com"; 
+
+        // 3. Validasi (Cek kalau kosong)
+        if(subject === "" || body === "") {
+            alert("Please fill in the Subject and Description first.");
+            return;
+        }
+
+        // 4. Buka Aplikasi Email Pengguna
+        // Format mailto: email?subject=...&body=...
+        window.location.href = `mailto:${myEmail}?subject=[BUG REPORT] ${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+</script>
             </form>
         </div>
 
