@@ -36,38 +36,32 @@ function init() {
     
     // 2. Render UI Global
     renderNavSystem();
+    renderStaticPagesLinks(); // Render link footer (DMCA, dll)
     updateLanguageUI();
     updateThemeUI();
     
     if(typeof lucide !== 'undefined') lucide.createIcons();
 
     // 3. LOGIKA PER HALAMAN
-    // A. Halaman Home
-    if (document.getElementById('contentArea')) {
-        fetchDataForHome(); 
-    }
-    
-    // B. Halaman News
-    if (document.getElementById('newsGrid')) {
-        fetchDataForNews();
-    }
+    if (document.getElementById('contentArea')) fetchDataForHome(); 
+    if (document.getElementById('newsGrid')) fetchDataForNews();
 }
 
-// --- LOGIKA HOME & NEWS (SSG DATA) ---
+// --- FETCH DATA (SSG) ---
 async function fetchDataForHome() {
     try {
-        const res = await fetch('index.json');
+        const res = await fetch('index.json'); // Ambil database
         const data = await res.json();
         ARTICLES = data.sort((a, b) => new Date(b.date) - new Date(a.date));
-        renderHomeFeed(); // Pastikan fungsi ini ada/lengkap di bawah
-    } catch (e) { console.log("Gagal load data home"); }
+        renderHomeFeed();
+    } catch (e) { console.error("Gagal load index.json", e); }
 }
 
 async function fetchDataForNews() {
     try {
         const res = await fetch('index.json');
         const data = await res.json();
-        // Filter kategori 'News' atau tag 'News'/'Berita'
+        // Filter: Hanya yang kategorinya News, atau punya tag News/Berita
         const newsItems = data.filter(item => 
             (item.category && item.category === 'News') || 
             (item.tags && (item.tags.includes('News') || item.tags.includes('Berita')))
@@ -76,33 +70,48 @@ async function fetchDataForNews() {
     } catch (e) { renderNewsGrid([]); }
 }
 
-// --- RENDER FUNGSI (BAGIAN INI YANG SAYA PERBAIKI UNTUK FOLDER POSTS) ---
+// --- RENDER FUNGSI (LOGIKA TAMPILAN BARU) ---
 
 function renderHomeFeed() {
     const container = document.getElementById('contentArea');
     if (!container) return;
     
-    // Menampilkan 12 artikel terbaru di Home
-    const feed = ARTICLES.slice(0, 12); 
+    const feed = ARTICLES.slice(0, 12); // Tampilkan 12 artikel terbaru
     
     container.innerHTML = feed.map((post, i) => `
         <article class="mb-12 border-b border-slate-200 dark:border-white/10 pb-12 last:border-0 fade-in" style="animation-delay: ${i*0.1}s">
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="rounded-2xl overflow-hidden bg-slate-100 h-64">
-                    <img src="${post.image || 'assets/img/placeholder.jpg'}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                <div class="rounded-2xl overflow-hidden bg-slate-100 h-64 border border-slate-200 dark:border-white/5">
+                    <img src="${post.image || 'assets/img/placeholder.jpg'}" 
+                         onerror="this.src='https://placehold.co/600x400?text=No+Image'"
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
                 </div>
+
                 <div class="flex flex-col justify-center">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 text-[10px] font-black uppercase tracking-widest">${post.category || 'UPDATE'}</span>
-                        <span class="text-xs font-mono opacity-50">${post.date}</span>
+                    <div class="flex flex-wrap items-center gap-2 mb-4">
+                        <span class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 text-[10px] font-black uppercase tracking-widest border border-sky-500/20">
+                            ${post.category || 'UPDATE'}
+                        </span>
+                        
+                        <span class="text-xs font-mono opacity-50 mr-2 flex items-center gap-1">
+                            <i data-lucide="calendar" class="w-3 h-3"></i> ${post.date}
+                        </span>
+                        
+                        ${post.tags ? post.tags.slice(0,3).map(tag => `
+                            <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-white/10 px-2 py-0.5 rounded uppercase">#${tag}</span>
+                        `).join('') : ''}
                     </div>
+
                     <h2 class="text-3xl font-black mb-4 leading-tight hover:text-sky-600 transition-colors">
                         <a href="posts/${post.slug}.html">${post.title}</a>
                     </h2>
-                    <p class="text-slate-600 dark:text-slate-400 mb-6 line-clamp-3">${post.excerpt}</p>
+
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 line-clamp-3 leading-relaxed">
+                        ${post.excerpt}
+                    </p>
                     
-                    <a href="posts/${post.slug}.html" class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest hover:gap-4 transition-all text-sky-600">
-                        Read System Log <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    <a href="posts/${post.slug}.html" class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest hover:gap-4 transition-all text-sky-600 group">
+                        BACA SELENGKAPNYA <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
             </div>
@@ -117,25 +126,34 @@ function renderNewsGrid(items) {
     if (!container) return;
 
     if (items.length === 0) {
-        container.innerHTML = '<p class="col-span-full text-center opacity-50 font-mono py-10">NO NEWS REPORT YET.</p>';
+        container.innerHTML = '<div class="col-span-full text-center py-20 opacity-50 font-mono border-2 border-dashed border-slate-200 rounded-3xl">NO NEWS REPORT YET.</div>';
         return;
     }
 
     container.innerHTML = items.map((post, i) => `
-        <article class="group relative overflow-hidden rounded-[2rem] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/50 hover:border-sky-500 transition-all shadow-lg fade-in" style="animation-delay: ${i*0.1}s">
-            <div class="h-48 overflow-hidden">
-                <img src="${post.image || 'assets/img/placeholder.jpg'}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+        <article class="group relative overflow-hidden rounded-[2rem] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/50 hover:border-sky-500 transition-all shadow-lg fade-in flex flex-col h-full" style="animation-delay: ${i*0.1}s">
+            <div class="h-48 overflow-hidden shrink-0 relative">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10"></div>
+                <img src="${post.image || 'assets/img/placeholder.jpg'}" 
+                     onerror="this.src='https://placehold.co/600x400?text=News'"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <span class="absolute bottom-3 left-4 z-20 text-white text-[10px] font-black uppercase tracking-widest bg-black/50 px-2 py-1 rounded backdrop-blur-sm">
+                    ${post.date}
+                </span>
             </div>
-            <div class="p-6">
-                <span class="text-[10px] font-black uppercase tracking-widest text-sky-600 dark:text-teal-400 mb-2 block">DEV REPORT #${i+1}</span>
-                
-                <h3 class="text-xl font-black mb-3 leading-tight dark:text-white">
-                    <a href="posts/${post.slug}.html">${post.title}</a>
-                </h3>
-                
-                <p class="text-sm opacity-70 line-clamp-3 mb-4">${post.excerpt}</p>
-                
-                <a href="posts/${post.slug}.html" class="text-xs font-bold uppercase tracking-widest decoration-sky-500 underline underline-offset-4">Read Report</a>
+            <div class="p-6 flex flex-col flex-1">
+                <div class="mb-auto">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-sky-600 dark:text-teal-400 mb-2 block">
+                        NEWS REPORT
+                    </span>
+                    <h3 class="text-xl font-black mb-3 leading-tight dark:text-white group-hover:text-sky-500 transition-colors">
+                        <a href="posts/${post.slug}.html">${post.title}</a>
+                    </h3>
+                    <p class="text-sm opacity-70 line-clamp-3 mb-4">${post.excerpt}</p>
+                </div>
+                <a href="posts/${post.slug}.html" class="text-xs font-bold uppercase tracking-widest decoration-sky-500 underline underline-offset-4 mt-4 inline-block">
+                    Read Report
+                </a>
             </div>
         </article>
     `).join('');
@@ -143,9 +161,10 @@ function renderNewsGrid(items) {
     if(typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-// --- RENDER NAVIGASI ---
+// --- RENDER NAVIGASI UTAMA ---
 function renderNavSystem() {
     const container = document.getElementById('navLinksContainer');
+    // Navigasi Utama tetap di Root
     const links = [
         { id: 'home', icon: 'home', path: 'index.html' },
         { id: 'news', icon: 'rss', path: 'news.html' },        
@@ -167,7 +186,21 @@ function renderNavSystem() {
     }
 }
 
-// --- UTILS ---
+// --- RENDER LINK STATIS (DMCA, Privacy, dll) ---
+// Ini untuk persiapan folder 'pages/'
+function renderStaticPagesLinks() {
+    const footerLinks = document.getElementById('footerStaticLinks');
+    if(footerLinks) {
+        // Asumsi: File-file ini nanti Anda buat di folder 'pages/'
+        footerLinks.innerHTML = `
+            <a href="pages/dmca.html" class="hover:text-sky-500 transition-colors">DMCA</a> • 
+            <a href="pages/privacy.html" class="hover:text-sky-500 transition-colors">Privacy</a> • 
+            <a href="pages/terms.html" class="hover:text-sky-500 transition-colors">Terms</a>
+        `;
+    }
+}
+
+// --- UTILS (Drawer, Theme, Lang) ---
 function toggleDrawer(open) {
     const overlay = document.getElementById('drawerOverlay');
     const drawer = document.getElementById('drawer');
