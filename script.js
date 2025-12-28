@@ -49,7 +49,7 @@ function renderHomeFeed(items) {
     const feed = items.slice(0, 10); 
     
     if (feed.length === 0) {
-        container.innerHTML = '<div class="text-center opacity-50 py-10 border-2 border-dashed border-slate-200 rounded-xl">DATA NOT FOUND</div>';
+        container.innerHTML = '<div class="text-center opacity-50 py-10 border-2 border-dashed border-slate-200 rounded-xl">DATA TIDAK DITEMUKAN</div>';
         return;
     }
 
@@ -66,9 +66,17 @@ function renderHomeFeed(items) {
                 </div>
 
                 <div class="flex flex-col justify-center">
-                    <div class="flex flex-wrap items-center gap-3 mb-3 text-xs font-mono opacity-60">
-                        <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> ${post.date}</span>
-                        ${post.tags ? `<span class="flex items-center gap-1"><i data-lucide="tag" class="w-3 h-3"></i> #${post.tags[0]}</span>` : ''}
+                    
+                    <div class="flex flex-wrap items-center gap-2 mb-3">
+                        <span class="text-xs font-mono opacity-60 flex items-center gap-1 mr-2">
+                            <i data-lucide="calendar" class="w-3 h-3"></i> ${post.date}
+                        </span>
+                        
+                        ${post.tags ? post.tags.slice(0, 3).map(tag => `
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-sky-50 text-sky-600 dark:bg-white/5 dark:text-sky-400 border border-sky-100 dark:border-white/5">
+                                #${tag}
+                            </span>
+                        `).join('') : ''}
                     </div>
 
                     <h2 class="text-3xl font-black mb-4 leading-tight hover:text-sky-600 transition-colors">
