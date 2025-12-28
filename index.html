@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IwanSena | Dev, Fanatasy & Code</title>
+    <title>IwanSena | Dev, Fantasy & Code</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
@@ -24,8 +24,15 @@
             }
         }
     </script>
+    
+    <style>
+        .goog-te-banner-frame { display: none !important; }
+        body { top: 0 !important; }
+        .goog-tooltip { display: none !important; }
+        .goog-te-gadget-simple { background-color: transparent !important; border: none !important; padding: 0 !important; }
+    </style>
 </head>
-<body class="">
+<body class="bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-white transition-colors duration-300">
 
     <div id="scroll-progress"></div>
     <div class="fluid-bg"></div>
@@ -43,12 +50,14 @@
 
         <div class="hidden md:flex flex-1 max-w-md mx-8 relative group">
             <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-sky-500"></i>
-            <input type="text" id="searchInput" placeholder="Search logs..." class="w-full bg-slate-100 border-slate-200 text-slate-900 border rounded-full py-2 pl-11 pr-4 text-sm focus:outline-none focus:border-sky-500 font-medium transition-all dark:bg-slate-900/50 dark:border-white/10 dark:text-white data-i18n-placeholder='ui.search'">
+            <input type="text" id="searchInput" placeholder="Search logs..." class="w-full bg-slate-100 border-slate-200 text-slate-900 border rounded-full py-2 pl-11 pr-4 text-sm focus:outline-none focus:border-sky-500 font-medium transition-all dark:bg-slate-900/50 dark:border-white/10 dark:text-white">
         </div>
 
         <div class="flex items-center gap-2">
+            <div id="google_translate_element" class="hidden"></div>
+            
             <button onclick="toggleLang()" id="langBtn" class="px-4 py-1.5 rounded-lg border text-[10px] font-mono font-bold hover:bg-sky-600 hover:text-white transition-all border-slate-200 text-slate-700 dark:border-slate-700 dark:text-slate-400">
-                <span class="flex items-center gap-2"><i data-lucide="globe" class="w-3 h-3"></i> <span id="langText">EN</span></span>
+                <span class="flex items-center gap-2"><i data-lucide="globe" class="w-3 h-3"></i> <span id="langText">ID/EN</span></span>
             </button>
         </div>
     </nav>
@@ -56,15 +65,15 @@
     <div id="drawerOverlay" onclick="toggleDrawer(false)" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300"></div>
     <div id="drawer" class="fixed top-0 left-0 bottom-0 w-72 bg-white dark:bg-[#020617] z-[120] p-8 border-r border-white/5 shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300">
         <div class="flex justify-between items-center mb-10">
-            <span class="font-black text-[10px] text-sky-600 dark:text-teal-400 font-mono tracking-[0.3em] uppercase data-i18n="ui.sidebar">NAV SYSTEM</span>
+            <span class="font-black text-[10px] text-sky-600 dark:text-teal-400 font-mono tracking-[0.3em] uppercase">NAV SYSTEM</span>
             <button onclick="toggleDrawer(false)" class="hover:rotate-90 transition-transform"><i data-lucide="x" class="w-6 h-6 dark:text-white"></i></button>
         </div>
         <div class="space-y-2 flex-1 overflow-y-auto scrollbar-hide" id="navLinksContainer">
-            </div>
+        </div>
         <button onclick="toggleTheme()" class="mt-auto w-full flex items-center justify-between p-4 rounded-3xl transition-all border bg-slate-100 border-slate-200 text-slate-900 shadow-sm dark:bg-slate-900 dark:border-white/5 dark:text-teal-400 dark:shadow-teal-500/10 dark:shadow-lg">
             <div class="flex items-center gap-3">
                 <i id="themeIcon" data-lucide="sun" class="w-5 h-5 text-orange-500 dark:text-teal-400"></i>
-                <span class="font-black text-[10px] font-mono uppercase tracking-widest data-i18n="ui.mode">MODE</span>
+                <span class="font-black text-[10px] font-mono uppercase tracking-widest">MODE</span>
             </div>
             <i data-lucide="sparkles" class="w-4 h-4"></i>
         </button>
@@ -72,10 +81,17 @@
 
     <main class="flex-1 pt-24 pb-20 px-4 md:px-8 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10 min-h-screen">
         
-        <section class="lg:col-span-8 space-y-12" id="contentArea">
-            <div class="flex flex-col items-center justify-center py-20 opacity-50">
-                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-sky-600 mb-4"></div>
-                <p class="font-mono text-xs">CONNECTING TO DATABASE...</p>
+        <section class="lg:col-span-8 space-y-8">
+            <div class="md:hidden w-full relative group mb-6">
+                <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-sky-500"></i>
+                <input type="text" oninput="document.getElementById('searchInput').value=this.value; handleSearch(this.value)" placeholder="Search articles..." class="w-full bg-white border-slate-200 text-slate-900 border rounded-2xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-sky-500 font-medium transition-all shadow-sm dark:bg-slate-900/50 dark:border-white/10 dark:text-white">
+            </div>
+
+            <div id="contentArea">
+                <div class="flex flex-col items-center justify-center py-20 opacity-50">
+                    <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-sky-600 mb-4"></div>
+                    <p class="font-mono text-xs">CONNECTING TO DATABASE...</p>
+                </div>
             </div>
         </section>
 
@@ -87,8 +103,8 @@
                         <img src="assets/img/Myavatar.svg" alt="Avatar" class="w-full h-full rounded-full bg-white">
                     </div>
                     <h4 class="font-black text-xl mb-1 dark:text-white">IwanSena</h4>
-                    <p class="text-[10px] font-mono font-black uppercase tracking-[0.2em] mb-4 text-sky-600 dark:text-teal-400 data-i18n="ui.bio">Fullstack Architect</p>
-                    <p class="text-xs leading-relaxed mb-6 font-semibold text-slate-600 dark:text-slate-400 data-i18n="ui.desc">Crafting digital experiences with high-performance code.</p>
+                    <p class="text-[10px] font-mono font-black uppercase tracking-[0.2em] mb-4 text-sky-600 dark:text-teal-400">Fullstack Architect</p>
+                    <p class="text-xs leading-relaxed mb-6 font-semibold text-slate-600 dark:text-slate-400">Crafting digital experiences with high-performance code.</p>
                     <div class="flex gap-3 w-full justify-center">
                         <a href="https://t.me/Aliansiena" target="_blank" class="flex-1 py-3 text-white rounded-xl text-[10px] font-black transition-all uppercase tracking-[0.1em] shadow-lg hover:scale-105 active:scale-95 bg-[#0088cc] hover:bg-[#0077b5] flex items-center justify-center gap-2">
                             <i data-lucide="send" class="w-4 h-4"></i> TELEGRAM
@@ -98,61 +114,60 @@
                         </a>
                     </div>
                 </div>
-                <div class="p-8 mt-10 rounded-[2.5rem] border border-red-100 dark:border-red-500/20 bg-red-50/50 dark:bg-red-500/5 shadow-sm">
-    <div class="flex items-center gap-4 mb-4">
-        <div class="w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center shadow-lg shadow-red-500/30">
-            <i data-lucide="bug" class="w-5 h-5"></i>
-        </div>
-        <div>
-            <h4 class="font-black text-sm text-slate-800 dark:text-white">FOUND A BUG?</h4>
-            <p class="text-[10px] font-mono text-slate-500 uppercase">Help us fix it</p>
-        </div>
-    </div>
-    <p class="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-        If you encounter glitches or errors, please report them immediately.
-    </p>
-    <a href="pages/bug.html" class="block w-full py-3 rounded-xl border border-red-200 dark:border-red-500/30 text-center text-red-600 dark:text-red-400 font-black text-[10px] uppercase tracking-[0.2em] hover:bg-red-500 hover:text-white transition-all">
-        REPORT ISSUE
-    </a>
-</div>
-            </div>
 
-            <div class="p-8 rounded-[2rem] border bg-white border-slate-100 shadow-sm dark:bg-slate-900/40 dark:border-white/5 dark:shadow-xl dark:backdrop-blur-md">
-                <h4 class="font-black text-xs mb-8 flex items-center gap-3 uppercase tracking-widest text-sky-600 dark:text-teal-400">
-                    <i data-lucide="trending-up" class="w-4 h-4"></i> <span data-i18n="ui.trending">POPULAR</span>
-                </h4>
-                <div class="space-y-8" id="trendingList">
+                <div class="p-6 mt-8 rounded-[2rem] border border-red-100 dark:border-red-500/20 bg-red-50/50 dark:bg-red-500/5 shadow-sm">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center shadow-lg shadow-red-500/30">
+                            <i data-lucide="bug" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-xs text-slate-800 dark:text-white">FOUND A BUG?</h4>
+                            <p class="text-[9px] font-mono text-slate-500 uppercase">Help us fix it</p>
+                        </div>
                     </div>
+                    <a href="pages/bug.html" class="block w-full py-2.5 rounded-xl border border-red-200 dark:border-red-500/30 text-center text-red-600 dark:text-red-400 font-black text-[9px] uppercase tracking-[0.2em] hover:bg-red-500 hover:text-white transition-all">
+                        REPORT ISSUE
+                    </a>
+                </div>
             </div>
-<div class="p-8 mt-10 rounded-[2.5rem] border border-pink-100 dark:border-pink-500/20 bg-gradient-to-br from-pink-50 to-white dark:from-pink-500/5 dark:to-slate-900 shadow-sm relative overflow-hidden group">
-    
-    <div class="absolute -right-6 -top-6 w-24 h-24 bg-pink-500/20 rounded-full blur-2xl group-hover:bg-pink-500/30 transition-all"></div>
 
-    <div class="flex items-center gap-4 mb-4 relative z-10">
-        <div class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 text-pink-500 flex items-center justify-center shadow-lg border border-pink-100 dark:border-white/5">
-            <i data-lucide="coffee" class="w-6 h-6"></i>
-        </div>
-        <div>
-            <h4 class="font-black text-sm text-slate-800 dark:text-white">SUPPORT DEV</h4>
-            <p class="text-[10px] font-mono text-pink-500 uppercase font-bold">Fuel the Code</p>
-        </div>
-    </div>
-    
-    <p class="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed relative z-10">
-        Suka dengan project ini? Dukung saya agar server tetap hidup.
-    </p>
-    
-    <a href="pages/donation.html" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-slate-900 dark:bg-pink-600 text-white font-black text-[10px] uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-pink-500/20">
-        <i data-lucide="heart" class="w-3 h-3 fill-current"></i> DONATE NOW
-    </a>
-</div>
             <div class="p-8 rounded-[2rem] border bg-white border-slate-100 shadow-sm dark:bg-slate-900/40 dark:border-white/5 dark:shadow-xl dark:backdrop-blur-md">
                 <h4 class="font-black text-xs mb-6 flex items-center gap-3 uppercase tracking-widest text-sky-600 dark:text-teal-400">
-                    <i data-lucide="hash" class="w-4 h-4"></i> <span data-i18n="ui.meta">TAGS</span>
+                    <i data-lucide="trending-up" class="w-4 h-4"></i> <span>POPULAR</span>
+                </h4>
+                <div class="space-y-4" id="popularPosts">
+                    <p class="text-xs opacity-50 font-mono">Loading data...</p>
+                </div>
+            </div>
+
+            <div class="p-8 mt-10 rounded-[2.5rem] border border-pink-100 dark:border-pink-500/20 bg-gradient-to-br from-pink-50 to-white dark:from-pink-500/5 dark:to-slate-900 shadow-sm relative overflow-hidden group">
+                <div class="absolute -right-6 -top-6 w-24 h-24 bg-pink-500/20 rounded-full blur-2xl group-hover:bg-pink-500/30 transition-all"></div>
+                <div class="flex items-center gap-4 mb-4 relative z-10">
+                    <div class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 text-pink-500 flex items-center justify-center shadow-lg border border-pink-100 dark:border-white/5">
+                        <i data-lucide="coffee" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-sm text-slate-800 dark:text-white">SUPPORT DEV</h4>
+                        <p class="text-[10px] font-mono text-pink-500 uppercase font-bold">Fuel the Code</p>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed relative z-10">
+                    Suka dengan project ini? Dukung saya agar server tetap hidup.
+                </p>
+                <a href="pages/donation.html" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-slate-900 dark:bg-pink-600 text-white font-black text-[10px] uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-pink-500/20">
+                    <i data-lucide="heart" class="w-3 h-3 fill-current"></i> DONATE NOW
+                </a>
+            </div>
+
+            <div class="p-8 rounded-[2rem] border bg-white border-slate-100 shadow-sm dark:bg-slate-900/40 dark:border-white/5 dark:shadow-xl dark:backdrop-blur-md">
+                <h4 class="font-black text-xs mb-6 flex items-center gap-3 uppercase tracking-widest text-sky-600 dark:text-teal-400">
+                    <i data-lucide="hash" class="w-4 h-4"></i> <span>TAGS</span>
                 </h4>
                 <div class="flex flex-wrap gap-2" id="tagsCloud">
-                    </div>
+                    <p class="text-xs opacity-50 font-mono">Loading tags...</p>
+                </div>
             </div>
+
         </aside>
     </main>
 
@@ -160,47 +175,44 @@
         <div class="max-w-7xl mx-auto">
             <div class="mb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center border-b border-white/10 pb-16">
                 <div>
-                    <h5 class="font-black text-[10px] uppercase tracking-[0.4em] font-mono mb-4 text-white/70" data-i18n="footer.uplink">UPLINK</h5>
-                    <p class="text-xl md:text-2xl font-black" data-i18n="ui.sub">Subscribe for updates</p>
+                    <h5 class="font-black text-[10px] uppercase tracking-[0.4em] font-mono mb-4 text-white/70">UPLINK</h5>
+                    <p class="text-xl md:text-2xl font-black">Subscribe for updates</p>
                 </div>
                 <div class="flex gap-2">
                     <input type="email" placeholder="ADDRESS_INPUT..." class="flex-1 border-none rounded-2xl px-6 py-4 text-xs font-black focus:outline-none focus:ring-2 focus:ring-white/50 transition-all font-mono bg-white/10 text-white placeholder:text-white/40 shadow-inner">
-                    <button class="px-8 py-4 rounded-2xl text-[11px] font-black transition-all bg-white text-[#0d9488] hover:bg-slate-100 active:scale-95 uppercase tracking-[0.2em] shadow-lg" data-i18n="ui.join">TRANSMIT</button>
+                    <button class="px-8 py-4 rounded-2xl text-[11px] font-black transition-all bg-white text-[#0d9488] hover:bg-slate-100 active:scale-95 uppercase tracking-[0.2em] shadow-lg">TRANSMIT</button>
                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <div class="col-span-1 lg:col-span-2">
                     <h3 class="text-2xl font-black mb-4">IwanSena<span class="opacity-50">.dev</span></h3>
-                    <p class="text-sm opacity-80 max-w-sm mb-6" data-i18n="ui.desc">Crafting digital experiences with high-performance code.</p>
+                    <p class="text-sm opacity-80 max-w-sm mb-6">Crafting digital experiences with high-performance code.</p>
                 </div>
                 
                 <div>
                     <h5 class="font-black text-[10px] uppercase tracking-[0.3em] font-mono opacity-60 mb-6">Legal_Protocol</h5>
-                    <div>
-    <div class="flex flex-col gap-3 text-xs font-bold uppercase tracking-widest">
-    <a href="pages/donation.html" class="text-pink-500 hover:text-pink-600 transition-colors">♥ Support / Donate</a>
-        <a href="pages/privacy.html" class="opacity-70 hover:opacity-100 hover:text-sky-600 dark:hover:text-teal-400 transition-colors">/ Privacy Policy</a>
-        <a href="pages/terms.html" class="opacity-70 hover:opacity-100 hover:text-sky-600 dark:hover:text-teal-400 transition-colors">/ Terms of Service</a>
-        <a href="pages/dmca.html" class="opacity-70 hover:opacity-100 hover:text-sky-600 dark:hover:text-teal-400 transition-colors">/ DMCA</a>
-    </div>
-</div>
+                    <div class="flex flex-col gap-3 text-xs font-bold uppercase tracking-widest">
+                        <a href="pages/donation.html" class="text-pink-500 hover:text-pink-600 transition-colors">♥ Support / Donate</a>
+                        <a href="pages/privacy.html" class="opacity-70 hover:opacity-100 hover:text-sky-600 dark:hover:text-teal-400 transition-colors">/ Privacy Policy</a>
+                        <a href="pages/terms.html" class="opacity-70 hover:opacity-100 hover:text-sky-600 dark:hover:text-teal-400 transition-colors">/ Terms of Service</a>
+                        <a href="pages/dmca.html" class="opacity-70 hover:opacity-100 hover:text-sky-600 dark:hover:text-teal-400 transition-colors">/ DMCA</a>
+                    </div>
                 </div>
 
                 <div>
-                    <h5 class="font-black text-[10px] uppercase tracking-[0.3em] font-mono opacity-60 mb-6" data-i18n="footer.grid">SOCIAL MATRIX</h5>
+                    <h5 class="font-black text-[10px] uppercase tracking-[0.3em] font-mono opacity-60 mb-6">SOCIAL MATRIX</h5>
                     <div class="flex flex-wrap gap-3">
                         <a href="#" class="p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="github" class="w-5 h-5"></i></a>
                         <a href="#" class="p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="instagram" class="w-5 h-5"></i></a>
                         <a href="#" class="p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-                        <a href="#" class="p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#0d9488] transition-all"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
                     </div>
                 </div>
             </div>
 
             <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-mono opacity-50 tracking-[0.2em] uppercase font-black">
-                <p>© 2025 IwanSena <span data-i18n="footer.rights">All Rights Reserved</span></p>
-                <div class="flex items-center gap-4"><span>POWERED BY: CPANEL UPAM</span><span class="w-1.5 h-1.5 rounded-full bg-white/30"></span><span>V.3.40</span></div>
+                <p>© 2025 IwanSena All Rights Reserved</p>
+                <div class="flex items-center gap-4"><span>POWERED BY: UPAM V9.8</span><span class="w-1.5 h-1.5 rounded-full bg-white/30"></span><span>V.4.0</span></div>
             </div>
             
         </div>
@@ -211,5 +223,13 @@
     </button>
 
     <script src="script.js"></script>
+    <script>
+        // Back To Top Logic
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if(window.scrollY > 300) { btn.classList.remove('opacity-0', 'pointer-events-none'); }
+            else { btn.classList.add('opacity-0', 'pointer-events-none'); }
+        });
+    </script>
 </body>
 </html>
