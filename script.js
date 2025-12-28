@@ -1,70 +1,55 @@
-// --- KONFIGURASI GLOBAL ---
 let ARTICLES = [];
 let isDark = localStorage.getItem('theme') === 'dark';
-let currentLang = 'ID'; // Default bahasa
+let currentLang = 'ID';
 
-// --- INIT UTAMA ---
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Cek Dark Mode
     if(isDark) {
         document.documentElement.classList.add('dark');
         document.body.classList.add('dark-mode');
     }
     updateThemeUI();
-
-    // 2. Load Data & Render
     fetchData();
-
-    // 3. Init UI Global
     renderNavSystem();
     renderStaticPagesLinks();
     
     if(typeof lucide !== 'undefined') lucide.createIcons();
 
-    // 4. Init Google Translate (Sistem Bahasa Canggih)
     initGoogleTranslate();
 
-    // 5. Setup Pencarian Real-time
     const searchInput = document.getElementById('searchInput');
     if(searchInput) {
         searchInput.addEventListener('input', (e) => handleSearch(e.target.value));
     }
 });
 
-// --- FETCH DATA (CORE SYSTEM) ---
 async function fetchData() {
     try {
         const res = await fetch('index.json');
         if (!res.ok) throw new Error("Gagal load database");
         
         const data = await res.json();
-        // Urutkan artikel dari yang terbaru
         ARTICLES = data.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        // RENDER HALAMAN SESUAI KEBUTUHAN
         if (document.getElementById('contentArea')) renderHomeFeed(ARTICLES);
         if (document.getElementById('newsGrid')) renderNewsGrid(ARTICLES);
         
-        // RENDER SIDEBAR (Widget Tag & Populer)
         renderSidebarWidgets();
 
     } catch (e) { 
-        console.error("Error System:", e);
+        console.error(e);
         const container = document.getElementById('contentArea');
-        if(container) container.innerHTML = '<div class="text-center opacity-50 py-10">GAGAL MEMUAT DATA. REFRESH HALAMAN.</div>';
+        if(container) container.innerHTML = '<div class="text-center opacity-50 py-10">DATABASE CONNECTION FAILED</div>';
     }
 }
 
-// --- LOGIKA FEED UTAMA (HOME) ---
 function renderHomeFeed(items) {
     const container = document.getElementById('contentArea');
     if (!container) return;
     
-    // Batasi 10 artikel di halaman depan
     const feed = items.slice(0, 10); 
     
     if (feed.length === 0) {
-        container.innerHTML = '<div class="text-center opacity-50 py-10 border-2 border-dashed border-slate-200 rounded-xl">TIDAK ADA HASIL PENCARIAN.</div>';
+        container.innerHTML = '<div class="text-center opacity-50 py-10 border-2 border-dashed border-slate-200 rounded-xl">DATA NOT FOUND</div>';
         return;
     }
 
@@ -105,25 +90,21 @@ function renderHomeFeed(items) {
     if(typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-// --- LOGIKA PENCARIAN CANGGIH ---
 function handleSearch(keyword) {
     const term = keyword.toLowerCase();
     
-    // Filter berdasarkan Judul, Deskripsi, atau Tag
     const filtered = ARTICLES.filter(item => 
         item.title.toLowerCase().includes(term) || 
         (item.excerpt && item.excerpt.toLowerCase().includes(term)) ||
         (item.tags && item.tags.some(tag => tag.toLowerCase().includes(term)))
     );
     
-    // Render ulang Home atau News tergantung halaman
     if (document.getElementById('contentArea')) renderHomeFeed(filtered);
     if (document.getElementById('newsGrid')) renderNewsGrid(filtered);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// --- LOGIKA SIDEBAR (WIDGET OTOMATIS) ---
 function renderSidebarWidgets() {
-    // 1. WIDGET POPULAR (Ambil 5 Random)
     const popularContainer = document.getElementById('popularPosts');
     if (popularContainer && ARTICLES.length > 0) {
         const shuffled = [...ARTICLES].sort(() => 0.5 - Math.random()).slice(0, 5);
@@ -143,7 +124,6 @@ function renderSidebarWidgets() {
         `).join('');
     }
 
-    // 2. WIDGET TAGS (Hitung Tag Unik)
     const tagsContainer = document.getElementById('tagsCloud');
     if (tagsContainer && ARTICLES.length > 0) {
         let allTags = [];
@@ -151,11 +131,10 @@ function renderSidebarWidgets() {
             if(post.tags) allTags = [...allTags, ...post.tags];
         });
         
-        // Hapus duplikat
         const uniqueTags = [...new Set(allTags.map(t => t.trim()))].slice(0, 15);
         
         tagsContainer.innerHTML = uniqueTags.map(tag => `
-            <button onclick="document.getElementById('searchInput').value='${tag}'; handleSearch('${tag}')" 
+            <button onclick="const s=document.getElementById('searchInput'); if(s){s.value='${tag}'; handleSearch('${tag}')}" 
                     class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 text-[11px] font-bold uppercase rounded-lg hover:bg-sky-500 hover:text-white transition-all shadow-sm mb-2 mr-1">
                 #${tag}
             </button>
@@ -163,15 +142,13 @@ function renderSidebarWidgets() {
     }
 }
 
-// --- LOGIKA HALAMAN NEWS ---
 function renderNewsGrid(items) {
     const container = document.getElementById('newsGrid');
     if (!container) return;
 
-    // Filter khusus berita jika belum difilter pencarian
     let displayItems = items;
-    // Jika sedang tidak mencari, filter kategori default
-    if (document.getElementById('searchInput') && document.getElementById('searchInput').value === '') {
+    const searchBox = document.getElementById('searchInput');
+    if (searchBox && searchBox.value === '') {
         displayItems = items.filter(item => 
             (item.category && item.category === 'News') || 
             (item.tags && (item.tags.includes('News') || item.tags.includes('Berita')))
@@ -179,7 +156,7 @@ function renderNewsGrid(items) {
     }
 
     if (displayItems.length === 0) {
-        container.innerHTML = '<div class="col-span-full text-center py-20 opacity-50 font-mono">TIDAK ADA BERITA.</div>';
+        container.innerHTML = '<div class="col-span-full text-center py-20 opacity-50 font-mono">NO DATA AVAILABLE.</div>';
         return;
     }
 
@@ -206,7 +183,6 @@ function renderNewsGrid(items) {
     if(typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-// --- GOOGLE TRANSLATE ENGINE (BAHASA OTOMATIS) ---
 function initGoogleTranslate() {
     if (!document.getElementById('g_translate_script')) {
         const script = document.createElement('script');
@@ -225,23 +201,16 @@ window.googleTranslateElementInit = function() {
     }, 'google_translate_element');
 };
 
-// Fungsi Ganti Bahasa (Dipanggil oleh tombol bendera)
 function toggleLang() {
     const combo = document.querySelector('.goog-te-combo');
     if (combo) {
-        // Toggle sederhana ID <-> EN
         combo.value = combo.value === 'en' ? 'id' : 'en';
         combo.dispatchEvent(new Event('change'));
-        
-        // Update UI Text manual (Opsional)
         currentLang = combo.value.toUpperCase();
         updateLanguageUI();
-    } else {
-        alert("Penerjemah sedang memuat... Tunggu sebentar.");
     }
 }
 
-// --- NAVIGASI & UI LAINNYA ---
 function renderNavSystem() {
     const container = document.getElementById('navLinksContainer');
     const links = [
@@ -280,7 +249,6 @@ function updateLanguageUI() {
     if(langText) langText.innerText = currentLang === 'ID' ? 'EN' : 'ID';
 }
 
-// --- DRAWER & THEME ---
 function toggleDrawer(open) {
     const overlay = document.getElementById('drawerOverlay');
     const drawer = document.getElementById('drawer');
