@@ -20,28 +20,12 @@
     </nav>
     <div id="drawer" class="fixed top-0 left-0 bottom-0 w-72 bg-white dark:bg-[#020617] z-[120] p-8 border-r border-white/5 shadow-2xl transform -translate-x-full transition-transform duration-300"><div class="space-y-2" id="navLinksContainer"></div></div>
 
-    <main class="pt-24 pb-20 px-4 md:px-8 max-w-3xl mx-auto min-h-screen">
-        <h1 class="text-3xl font-black mb-8 dark:text-white border-b border-slate-200 dark:border-white/10 pb-4">ARCHIVE LIST</h1>
-
-        <div class="flex flex-col gap-4">
-            
-            <a href="LINK_TUJUAN_1" target="_blank" class="group flex items-center justify-between p-4 rounded-xl border border-transparent hover:border-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:hover:border-white/5 transition-all">
-                <div>
-                    <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200 group-hover:text-sky-600 dark:group-hover:text-teal-400 transition-colors">Judul Artikel Blog Pertama Anda</h3>
-                    <span class="text-xs font-mono text-slate-400">2025-05-12 • TUTORIAL</span>
-                </div>
-                <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-300 group-hover:text-sky-600 opacity-0 group-hover:opacity-100 transition-all"></i>
-            </a>
-
-            <a href="LINK_TUJUAN_2" target="_blank" class="group flex items-center justify-between p-4 rounded-xl border border-transparent hover:border-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:hover:border-white/5 transition-all">
-                <div>
-                    <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200 group-hover:text-sky-600 dark:group-hover:text-teal-400 transition-colors">Cara Deploy Web ke GitHub Pages</h3>
-                    <span class="text-xs font-mono text-slate-400">2025-05-10 • TIPS</span>
-                </div>
-                <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-300 group-hover:text-sky-600 opacity-0 group-hover:opacity-100 transition-all"></i>
-            </a>
-
+    <main class="pt-24 pb-20 px-4 md:px-8 max-w-4xl mx-auto min-h-screen">
+        <div class="mb-8 border-b border-slate-200 dark:border-white/10 pb-4">
+            <h1 class="text-3xl font-black dark:text-white">BLOG</h1>
+            <p class="text-xs font-mono text-slate-400 mt-2">Artikel yang ditandai UPAM untuk tampil di Blog.</p>
         </div>
+        <div id="blogGrid" class="flex flex-col gap-4"><div class="text-center py-20 opacity-50 font-mono text-xs">LOADING ARTICLES...</div></div>
     </main>
 
     <script src="script.js"></script>
