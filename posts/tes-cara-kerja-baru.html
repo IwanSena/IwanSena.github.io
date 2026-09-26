@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>tes cara kerja baru</title><meta name="description" content="halo apa ini">
+<style>
+body{margin:0;background:#f5f8fc;color:#142033;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:860px;margin:auto;padding:28px 18px 70px}
+.card{background:#fff;border:1px solid #dbe4ef;border-radius:24px;padding:24px;box-shadow:0 15px 45px rgba(20,42,75,.08)}
+.eyebrow{font-size:11px;font-weight:900;letter-spacing:.14em;color:#1677ff;text-transform:uppercase}.date{color:#667085;font-size:12px}.tags{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 18px}.tags span{font-size:11px;background:#edf4ff;color:#1769cf;border-radius:999px;padding:6px 9px}
+h1{font-size:clamp(30px,6vw,52px);line-height:1.08;margin:8px 0 12px} .lead{font-size:18px;line-height:1.6;color:#596579}.content{font-size:16px;line-height:1.85}.content img{max-width:100%;height:auto;border-radius:14px}.content pre{overflow:auto;background:#0d1727;color:#d8e7ff;padding:15px;border-radius:12px}.share{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;padding-top:18px;border-top:1px solid #dbe4ef}.share a,.share button{border:1px solid #dbe4ef;background:#fff;border-radius:10px;padding:9px 12px;text-decoration:none;color:#142033;font-weight:800;font-size:12px;cursor:pointer}
+</style></head><body><main class="wrap"><article class="card">
+<div class="eyebrow">News update</div><div class="date">2026-09-27</div><h1>tes cara kerja baru</h1><p class="lead">halo apa ini</p>
+<div class="content upam-content">halo apa kabar. <h3>Tulis di sini</h3>lebih baik apakh lebih benar. <strong>Tulis di sini</strong><a href="https://example.com">Teks tautan</a><img src="https://example.com/gambar.jpg" alt="Deskripsi gambar"><ul>\n  <li>Item pertama</li>\n  <li>Item kedua</li>\n</ul></div>
+<div class="share"><a id="wa" target="_blank" rel="noopener">WhatsApp</a><a id="tg" target="_blank" rel="noopener">Telegram</a><a id="x" target="_blank" rel="noopener">X</a><button onclick="navigator.clipboard?.writeText(location.href)">Copy Link</button></div>
+</article></main><script>
+const u=encodeURIComponent(location.href),t=encodeURIComponent(document.title);
+document.getElementById("wa").href="https://wa.me/?text="+t+"%20"+u;
+document.getElementById("tg").href="https://t.me/share/url?url="+u+"&text="+t;
+document.getElementById("x").href="https://x.com/intent/post?text="+t+"&url="+u;
+</script></body></html>
