@@ -243,10 +243,7 @@ function renderNewsGrid(items) {
     let displayItems = items;
     const searchBox = document.getElementById('searchInput');
     if (searchBox && searchBox.value === '') {
-        displayItems = items.filter(item => 
-            (item.category && item.category === 'News') || 
-            (item.tags && (item.tags.includes('News') || item.tags.includes('Berita')))
-        );
+        displayItems = getSectionItems(items, 'news');
     }
 
     if (displayItems.length === 0) {
