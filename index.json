@@ -1,5 +1,18 @@
 [
   {
+    "title": "tes cara kerja baru",
+    "slug": "tes-cara-kerja-baru",
+    "date": "2026-09-27",
+    "tags": [],
+    "excerpt": "halo apa ini",
+    "category": "News update",
+    "image": "",
+    "sections": [
+      "home"
+    ],
+    "status": "published"
+  },
+  {
     "title": "Tes posting New 2026",
     "slug": "tes-posting-new-2026",
     "date": "2026-09-26",
