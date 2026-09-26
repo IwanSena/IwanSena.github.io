@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchData() {
     try {
-        const res = await fetch('index.json');
+        const res = await fetch('index.json?v=' + Date.now(), { cache: 'no-store' });
         if (!res.ok) throw new Error("Gagal load database");
         
         const data = await res.json();
@@ -32,6 +32,9 @@ async function fetchData() {
 
         if (document.getElementById('contentArea')) renderHomeFeed(ARTICLES);
         if (document.getElementById('newsGrid')) renderNewsGrid(ARTICLES);
+        if (document.getElementById('blogGrid')) renderDynamicList('blogGrid', 'blog', 'NO BLOG ARTICLES AVAILABLE.');
+        if (document.getElementById('projectsGrid')) renderProjectsDynamic();
+        if (document.getElementById('storeGrid')) renderStoreDynamic();
         
         renderSidebarWidgets();
 
@@ -42,11 +45,94 @@ async function fetchData() {
     }
 }
 
+
+function normalizeSection(value) {
+    return String(value || '').trim().toLowerCase();
+}
+
+function getSectionItems(items, section) {
+    const target = normalizeSection(section);
+    return items.filter(item => {
+        if (item.status && normalizeSection(item.status) !== 'published') return false;
+        if (Array.isArray(item.sections) && item.sections.length) {
+            return item.sections.map(normalizeSection).includes(target);
+        }
+        // Backward compatibility for older posts.
+        if (target === 'home') return true;
+        if (target === 'blog') return !['news', 'project', 'projects', 'store'].includes(normalizeSection(item.category));
+        if (target === 'news') return normalizeSection(item.category) === 'news' || (item.tags || []).some(t => ['news','berita'].includes(normalizeSection(t)));
+        if (target === 'projects') return ['project','projects'].includes(normalizeSection(item.category)) || (item.tags || []).some(t => ['project','projects'].includes(normalizeSection(t)));
+        if (target === 'store') return normalizeSection(item.category) === 'store' || (item.tags || []).some(t => ['store','product','produk'].includes(normalizeSection(t)));
+        return false;
+    }).sort((a,b) => new Date(b.date) - new Date(a.date));
+}
+
+function renderDynamicList(containerId, section, emptyText) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const items = getSectionItems(ARTICLES, section);
+    if (!items.length) {
+        container.innerHTML = '<div class="text-center py-20 opacity-50 font-mono text-xs">' + emptyText + '</div>';
+        return;
+    }
+    container.innerHTML = items.map(post => `
+        <a href="posts/${encodeURIComponent(post.slug)}.html" class="group flex items-center justify-between p-5 rounded-2xl border border-transparent hover:border-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50 dark:hover:border-white/5 transition-all">
+            <div>
+                <div class="text-[10px] uppercase tracking-widest text-sky-600 dark:text-teal-400 font-black mb-2">${post.category || section.toUpperCase()}</div>
+                <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200 group-hover:text-sky-600 dark:group-hover:text-teal-400 transition-colors">${post.title || 'Untitled'}</h3>
+                <span class="text-xs font-mono text-slate-400">${post.date || ''}${(post.tags || []).length ? ' • ' + post.tags.slice(0,2).join(' • ') : ''}</span>
+                <p class="text-sm opacity-70 mt-2 line-clamp-2">${post.excerpt || ''}</p>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-300 group-hover:text-sky-600 transition-all shrink-0"></i>
+        </a>`).join('');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function renderProjectsDynamic() {
+    const container = document.getElementById('projectsGrid');
+    if (!container) return;
+    const items = getSectionItems(ARTICLES, 'projects');
+    if (!items.length) {
+        container.innerHTML = '<div class="col-span-full text-center py-20 opacity-50 font-mono text-xs">NO PROJECTS AVAILABLE.</div>';
+        return;
+    }
+    container.innerHTML = items.map(post => `
+        <a href="posts/${encodeURIComponent(post.slug)}.html" class="group relative aspect-[3/4] rounded-2xl overflow-hidden bg-slate-200 dark:bg-slate-800">
+            <img src="${post.image || 'assets/img/placeholder.jpg'}" onerror="this.src='https://placehold.co/400x600?text=Project'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                <div><div class="text-[9px] uppercase tracking-widest text-teal-300 font-black mb-1">PROJECT</div><h3 class="text-white font-black text-lg leading-tight">${post.title || ''}</h3></div>
+            </div>
+        </a>`).join('');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function renderStoreDynamic() {
+    const container = document.getElementById('storeGrid');
+    if (!container) return;
+    const items = getSectionItems(ARTICLES, 'store');
+    if (!items.length) {
+        container.innerHTML = '<div class="col-span-full text-center py-20 opacity-50 font-mono text-xs">NO STORE ITEMS AVAILABLE.</div>';
+        return;
+    }
+    container.innerHTML = items.map(post => `
+        <article class="rounded-[2rem] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/50 p-6 flex flex-col gap-4 shadow-sm hover:shadow-xl transition-all">
+            <a href="posts/${encodeURIComponent(post.slug)}.html" class="h-40 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 block">
+                <img src="${post.image || 'assets/img/placeholder.jpg'}" onerror="this.src='https://placehold.co/600x400?text=Store'" class="w-full h-full object-cover">
+            </a>
+            <div><span class="text-[10px] font-mono text-sky-600 dark:text-teal-400 uppercase font-bold">STORE</span>
+                <h3 class="font-black text-xl dark:text-white mt-1"><a href="posts/${encodeURIComponent(post.slug)}.html">${post.title || ''}</a></h3>
+                <p class="text-sm mt-3 opacity-70 line-clamp-3">${post.excerpt || ''}</p>
+            </div>
+            <a href="posts/${encodeURIComponent(post.slug)}.html" class="mt-auto px-4 py-2 bg-slate-900 dark:bg-white dark:text-black text-white rounded-lg text-xs font-bold uppercase text-center">View Item</a>
+        </article>`).join('');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
 function renderHomeFeed(items) {
     const container = document.getElementById('contentArea');
     if (!container) return;
     
-    const feed = items.slice(0, 10); 
+    const feed = getSectionItems(items, 'home').slice(0, 10); 
     
     if (feed.length === 0) {
         container.innerHTML = '<div class="text-center opacity-50 py-10 border-2 border-dashed border-slate-200 rounded-xl">DATA TIDAK DITEMUKAN</div>';
